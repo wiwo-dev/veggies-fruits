@@ -1,0 +1,5 @@
+//.eslint
+{
+  "extends": ["next/core-web-vitals", "next", "prettier"]
+}
+//sprawdzić czy prettier jest zainstalowany

@@ -1,0 +1,12 @@
+{
+  "workbench.colorCustomizations": {
+    "editor.findMatchBackground": "#ff00008f",
+    "editor.findMatchBorder": "#f2ff0042",
+    "activityBar.background": "#2F1381",
+    "titleBar.activeBackground": "#421AB5",
+    "titleBar.activeForeground": "#FAF9FE"
+  },
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
+}

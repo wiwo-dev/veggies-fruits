@@ -3,12 +3,12 @@ import prisma from "lib/prisma";
 export default async function handle(req, res) {
   if (req.method === "GET") {
     const { category } = req.query;
-    const posts = await prisma.product.findMany({
+    const products = await prisma.product.findMany({
       //where: { published: true },
       where: category ? { categories: { some: { name: { equals: category } } } } : {},
       include: { categories: { select: { name: true, id: true } } },
     });
-    res.json(posts);
+    res.json(products);
   }
 
   if (req.method === "POST") {

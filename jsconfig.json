@@ -1,5 +1,9 @@
+// tsconfig.json or jsconfig.json
 {
   "compilerOptions": {
     "baseUrl": "."
+    //"target": "es6"
   }
+  //"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+  //"exclude": ["**/*.d.ts"]
 }

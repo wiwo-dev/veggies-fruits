@@ -37,6 +37,9 @@ module.exports = {
         primaryDark,
         sage: "#77817B",
       },
+      fontFamily: {
+        "abhaya-libre": ['"Abhaya+Libre"'],
+      },
     },
   },
   plugins: [],
