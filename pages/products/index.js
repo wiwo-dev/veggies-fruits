@@ -19,7 +19,9 @@ export default function Products({ products }) {
       <JsonPreviewer>{products}</JsonPreviewer>
       <section className="flex w-full gap-3 mx-5 my-5">
         {products.map((product, index) => (
+          // <AddToCardAnimation targetRef={cartRef} key={index}>
           <ProductCard key={index} product={product} />
+          // </AddToCardAnimation>
         ))}
       </section>
       <AddToCardAnimation targetRef={cartRef}>

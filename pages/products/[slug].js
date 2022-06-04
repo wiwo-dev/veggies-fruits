@@ -1,7 +1,7 @@
 import JsonPreviewer from "components/JsonPreviewer";
 import Navbar from "components/Navbar";
 
-export default function ({ product }) {
+export default function Page({ product }) {
   return (
     <>
       <Navbar />
@@ -17,7 +17,7 @@ export async function getStaticPaths() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`);
   const products = await res.json();
 
-  const paths = products.map((product) => ({ params: { id: `${product.id}` } }));
+  const paths = products.map((product) => ({ params: { slug: `${product.slug}` } }));
   return {
     paths,
     fallback: true, // false or 'blocking'
@@ -28,7 +28,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // params contains the product `id`.
   // If the route is like /products/1, then params.id is 1
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/${params.id}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/${params.slug}`);
   const product = await res.json();
 
   // Pass post data to the page via props
