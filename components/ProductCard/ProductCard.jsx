@@ -2,6 +2,7 @@ import { AnimateSharedLayout, LayoutGroup, motion, useAnimation } from "framer-m
 import { useEffect, useState, useContext } from "react";
 
 import { ShoppingCartContext } from "components/ShoppingCart/ShoppingCartContext";
+import Image from "next/image";
 
 export default function ProductCard({ product }) {
   const { name, mainPhotoUrl } = product;
@@ -28,7 +29,7 @@ export default function ProductCard({ product }) {
     }
   }, [countAdded]);
 
-  const { addItem, removeItem, removeAllItemsm, cartItems, cartItemsGrouped } = useContext(ShoppingCartContext);
+  const { addItem, removeItem, removeAllItems, cartItems, cartItemsGrouped } = useContext(ShoppingCartContext);
 
   useEffect(() => {
     const found = cartItemsGrouped.find((item) => item.product.slug === product.slug);
@@ -49,14 +50,18 @@ export default function ProductCard({ product }) {
     <div className="w-[155px]">
       <div
         className="w-full h-[120px] bg-center bg-cover bg-gradient-to-tr from-primary-6 to-primary-8 relative"
-        style={{ backgroundImage: `url("${mainPhotoUrl}")` }}>
-        {/* <AnimateSharedLayout>
-
-            </AnimateSharedLayout> */}
-
+        //style={{ backgroundImage: `url("${mainPhotoUrl}?w=200")` }}
+      >
+        <Image
+          src={`${mainPhotoUrl}?fit=facearea&w=155&h=120`}
+          width="155px"
+          height="120px"
+          className="object-cover w-[155px] h-[120px]"
+          alt={name}
+        />
         <motion.div
           animate={controls}
-          className="w-fit h-[36px] bg-primary-9 flex flex-row-reverse items-center justify-between rounded-full px-0 shadom-md right-[-8px] top-[-8px] absolute transition-transform">
+          className="absolute w-fit h-[36px] bg-primary-9 flex flex-row-reverse items-center justify-between rounded-full px-0 shadom-md right-[-8px] top-[-8px] transition-transform">
           <button
             className="w-[36px] h-[36px] rounded-full bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
             onClick={handleClickPlus}>

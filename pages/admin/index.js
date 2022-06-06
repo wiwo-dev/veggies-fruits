@@ -8,7 +8,11 @@ export default function Admin() {
   return (
     <>
       <Navbar />
-      <Sidebar />
+      {/* <Sidebar /> */}
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus minima non inventore quaerat ipsum fuga,
+        delectus odit assumenda labore pariatur dolorum nam ad itaque tempore vel. Eos repudiandae corporis in!
+      </p>
     </>
   );
 }

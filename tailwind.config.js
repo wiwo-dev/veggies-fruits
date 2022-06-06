@@ -31,6 +31,10 @@ const primaryDark = {
 module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      display: ["Oxygen", "Oswald"],
+      body: ["Imprima", '"Open Sans"'],
+    },
     extend: {
       colors: {
         primary,
