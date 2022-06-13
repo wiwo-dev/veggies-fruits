@@ -22,6 +22,8 @@ export default function AddImages() {
     },
   ]);
 
+  const [isProcessing, setIsProcessing] = useState(false);
+
   const setMainImage = (image) => {
     setAddedImages(
       addedImages.map((img) => {
@@ -43,8 +45,6 @@ export default function AddImages() {
   const handleImageSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    formData.append("filename", `${new Date().toISOString()}`);
-
     const config = {
       headers: { "content-type": "multipart/form-data" },
       onUploadProgress: (event) => {
@@ -52,15 +52,22 @@ export default function AddImages() {
       },
     };
 
+    setIsProcessing(true);
     const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/image`, formData, config);
-    const { origin_path: originPath } = response.data.data.attributes;
+
     const { status } = response;
-    if (status === 200) {
+    console.log(response);
+    if (status === 200 && response.data?.data?.attributes) {
+      const { origin_path: originPath } = response.data.data.attributes;
       console.log("Success:", originPath);
+      setIsProcessing(false);
       setAddedImages([
         ...addedImages,
         { src: `https://veggies-and-fruits.imgix.net${originPath}`, main: addedImages.length === 0 ? true : false },
       ]);
+    } else {
+      console.log("ERROR");
+      setIsProcessing(false);
     }
   };
 
@@ -76,7 +83,7 @@ export default function AddImages() {
           <Input label="Image" type="file" name="image" required />
 
           <Select label="Category" name="category" required>
-            <option selected disabled value="">
+            <option disabled value="">
               Choose category
             </option>
             <option value="vegetables">Vegetables</option>
@@ -84,7 +91,9 @@ export default function AddImages() {
           </Select>
 
           <div className="mt-3">
-            <Button type="submit">Submit</Button>
+            <Button type="submit" loading={isProcessing}>
+              Submit
+            </Button>
           </div>
         </form>
         <div className="flex flex-row gap-5 my-10">

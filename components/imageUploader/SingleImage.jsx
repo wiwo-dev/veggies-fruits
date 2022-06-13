@@ -1,13 +1,17 @@
+import Image from "next/image";
 import React from "react";
 //import Image from "next/image";
 
 function singleImage({ src, width = 100, height = 100, main = true, onRemove, onSetDefault }) {
   return (
-    <div className={`${main ? "border-2 border-primary-7 rounded-md" : "border-2 border-white"} relative`}>
-      <img src={src} width={width} height={height} alt="image" />
+    <div className="relative">
       <div
-        //className="absolute top-0 right-0 w-[20px] h-[20px] rounded-full bg-primary-9"
-        className="w-fit h-[36px] bg-primary-9 flex flex-row items-center justify-between rounded-full px-0 shadom-md right-[-8px] top-[-8px] absolute transition-transform">
+        className={`${
+          main ? "border-2 border-primary-7 " : "border-2 border-white"
+        } bg-gradient-to-tr from-primary-6 to-primary-9 overflow-clip rounded-md`}>
+        <img src={src} width={width} height={height} alt="image" />
+      </div>
+      <div className="w-fit h-[36px] bg-primary-9 flex flex-row items-center justify-between rounded-full px-0 shadom-md right-[-8px] top-[-8px] absolute transition-transform">
         <button
           className="w-[36px] h-[36px] rounded-full bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
           onClick={onSetDefault}>

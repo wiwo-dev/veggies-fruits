@@ -15,6 +15,16 @@ const primary = {
   12: "#1b311e",
 };
 
-export default function LoadingSpinner() {
-  return <Oval height="100" width="100" color={primary[9]} secondaryColor={primary[3]} ariaLabel="loading" />;
+export default function LoadingSpinner({ size = 100, strokeWidth = 7 }) {
+  return (
+    <Oval
+      strokeWidth={strokeWidth}
+      strokeWidthSecondary={strokeWidth}
+      height={size}
+      width={size}
+      color={primary[9]}
+      secondaryColor={primary[3]}
+      ariaLabel="loading"
+    />
+  );
 }

@@ -2,6 +2,7 @@ import { AnimateSharedLayout, LayoutGroup, motion, useAnimation } from "framer-m
 import { useEffect, useState, useContext } from "react";
 
 import { ShoppingCartContext } from "components/ShoppingCart/ShoppingCartContext";
+import Image from "next/image";
 
 export default function CartItemRow({ group }) {
   const { name, mainPhotoUrl } = group.product;
@@ -11,9 +12,15 @@ export default function CartItemRow({ group }) {
 
   return (
     <div className="flex items-center gap-5">
-      <div
-        className="w-[155px] h-[120px] bg-center bg-cover bg-gradient-to-tr from-primary-6 to-primary-8 relative"
-        style={{ backgroundImage: `url("${mainPhotoUrl}")` }}></div>
+      <div className="w-[155px] h-[120px] bg-center bg-cover bg-gradient-to-tr from-primary-6 to-primary-8 relative">
+        <Image
+          src={`${mainPhotoUrl}?fit=facearea&w=155&h=120`}
+          width="155px"
+          height="120px"
+          className="object-cover w-[155px] h-[120px]"
+          alt={name}
+        />
+      </div>
 
       <p className="font-abhaya-libre text-primary-12">{name}</p>
 

@@ -15,17 +15,18 @@ import MainContainer from "components/ui/MainContainer";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 export default function Products({}) {
   const { data: session } = useSession();
-  const cartRef = useRef();
-
   const [selectedCategory, setSelectedCategory] = useState();
 
   const { data: products, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/product${selectedCategory ? `?category=${selectedCategory}` : ""}`,
     fetcher
   );
-
   const { data: categories, error: errorCategories } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/category`, fetcher);
 
   return (
@@ -39,7 +40,7 @@ export default function Products({}) {
               <span
                 onClick={() => setSelectedCategory("")}
                 className="min-w-[80px] text-center font-display text-primary-11">
-                all
+                All
               </span>
               <span className="min-w-[10px] text-center font-display text-primary-11">|</span>
               {categories.map((category) => (
@@ -49,7 +50,7 @@ export default function Products({}) {
                     className={`min-w-[120px] text-center font-display ${
                       selectedCategory === category.name ? "text-primary-11" : "text-primary-10"
                     }`}>
-                    {category.name}
+                    {capitalizeFirstLetter(category.name)}
                   </span>
                   <span className="min-w-[10px] text-center font-display text-primary-11">|</span>
                 </>

@@ -22,10 +22,10 @@ function useShoppingCart() {
       }
       return acc;
     }, []);
+    //to sort alphatericly - to avoid issues with products changing the order
+    grouped.sort((a, b) => a.product.slug.localeCompare(b.product.slug));
     setCartItemsGrouped(grouped);
   }, [cartItems]);
-
-  React.useEffect(() => {}, []);
 
   const addItem = ({ cartItem }) => {
     setCartItems([...cartItems, cartItem]);

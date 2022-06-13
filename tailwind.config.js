@@ -42,7 +42,7 @@ module.exports = {
         sage: "#77817B",
       },
       fontFamily: {
-        "abhaya-libre": ['"Abhaya+Libre"'],
+        "abhaya-libre": ['"Abhaya Libre"'],
       },
     },
   },

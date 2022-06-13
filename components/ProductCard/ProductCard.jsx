@@ -3,13 +3,10 @@ import { useEffect, useState, useContext } from "react";
 
 import { ShoppingCartContext } from "components/ShoppingCart/ShoppingCartContext";
 import Image from "next/image";
+import spinnerGif from "public/Spinner-1s-200px.gif";
 
 export default function ProductCard({ product }) {
-  const { name, mainPhotoUrl } = product;
-  const imageUrl =
-    "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80";
-
-  const variant = "first";
+  const { name, price, mainPhotoUrl } = product;
 
   const [countAdded, setCountAdded] = useState(0);
 
@@ -53,11 +50,13 @@ export default function ProductCard({ product }) {
         //style={{ backgroundImage: `url("${mainPhotoUrl}?w=200")` }}
       >
         <Image
-          src={`${mainPhotoUrl}?fit=facearea&w=155&h=120`}
+          src={`${mainPhotoUrl}?q=100&fit=facearea&w=155&h=120`}
           width="155px"
           height="120px"
           className="object-cover w-[155px] h-[120px]"
           alt={name}
+          placeholder="blur"
+          blurDataURL={spinnerGif}
         />
         <motion.div
           animate={controls}
@@ -96,7 +95,10 @@ export default function ProductCard({ product }) {
         </motion.div>
       </div>
 
-      <p className="font-abhaya-libre text-primary-12">{name}</p>
+      <div className="flex flex-row justify-between">
+        <p className="font-abhaya-libre text-primary-12">{name}</p>
+        <p className="font-abhaya-libre text-primary-11">{price.toFixed(2)}$</p>
+      </div>
     </div>
   );
 }

@@ -42,6 +42,7 @@ export default async function handle(req, res) {
       where: category ? { categories: { some: { name: { equals: category } } } } : {},
       include: { categories: { select: { name: true, id: true } } },
     });
+
     res.json(products);
   }
 

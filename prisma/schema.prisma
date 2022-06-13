@@ -78,6 +78,7 @@ model Product {
   name         String?
   slug         String?    @unique
   description  String?
+  price        Float      @default(1.0)
   published    Boolean    @default(true)
   stockCount   Int        @default(0)
   categories   Category[]

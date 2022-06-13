@@ -30,17 +30,14 @@ apiRoute.use(uploadMiddleware);
 //apiRoute.use(uploadMiddlewareMultiple);
 
 apiRoute.post(async (req, res) => {
-  //console.log(req.body);
-  //console.log("FILESSSSS");
   const { name, category } = req.body;
   console.log(req.file);
   const dateString = `${new Date().toISOString()}`.replace(/[^a-zA-Z0-9]/g, "").split("T")[0]; //?
   const timeString = new Date().toLocaleTimeString("pl").replace(/[A-Z:]/g, "");
-  const dateTimeString = `${dateString}T${timeString}`;
+  const dateTimeString = `${dateString}T${timeString}`; //20220602T192311
 
   const imgixResponse = await saveImage(req.file.buffer, `${category}/${name}-${dateTimeString}`);
   //console.log(imgixResponse);
-  //res.status(200).json({ data: imgixResponse });
   res.status(200).json({ data: imgixResponse.data });
 });
 
@@ -61,6 +58,6 @@ const saveImage = async (file, filename) => {
     return result;
   } catch (error) {
     console.error("Error:", error);
-    return error;
+    return { status: 500, error };
   }
 };
