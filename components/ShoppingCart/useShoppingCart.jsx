@@ -6,6 +6,7 @@ function useShoppingCart() {
 
   const [cartItems, setCartItems] = useState([]);
   const [cartItemsGrouped, setCartItemsGrouped] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     setCartItemsCount(cartItems.length);
@@ -25,6 +26,11 @@ function useShoppingCart() {
     //to sort alphatericly - to avoid issues with products changing the order
     grouped.sort((a, b) => a.product.slug.localeCompare(b.product.slug));
     setCartItemsGrouped(grouped);
+
+    const total = cartItemsGrouped.reduce((acc, item) => {
+      return acc + item.product.price * item.count;
+    }, 0);
+    setTotalPrice(total);
   }, [cartItems]);
 
   const addItem = ({ cartItem }) => {
@@ -73,7 +79,7 @@ function useShoppingCart() {
     // //setCartItemsCount(0);
   };
 
-  return { cartItems, cartItemsCount, cartItemsGrouped, addItem, removeItem, removeAllItems };
+  return { cartItems, cartItemsCount, cartItemsGrouped, totalPrice, addItem, removeItem, removeAllItems };
 }
 
 export default useShoppingCart;

@@ -36,6 +36,9 @@ module.exports = {
       body: ["Imprima", '"Open Sans"'],
     },
     extend: {
+      screens: {
+        xs: "390px",
+      },
       colors: {
         primary,
         primaryDark,
