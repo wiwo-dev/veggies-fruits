@@ -1,29 +1,56 @@
 import { Button } from "components/ui";
 import { Input, Select } from "components/ui/form";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import { useState } from "react";
+
 import DeliveryIcon from "./DeliveryIcon";
 import PickUpIcon from "./PickUpIcon";
 import RightMoreArrowIcon from "./RightMoreArrowIcon";
 
+import { regex } from "components/Checkout/RegexValidation";
+import OrderSummary from "./OrderSummary";
+
 export default function DeliveryPanel() {
   const [deliveryMethod, setDeliveryMethod] = useState("delivery");
   const [deliveryAddress, setDeliveryAddress] = useState();
+  const [deliveryAddressObject, setDeliveryAddressObject] = useState();
+
   function handleInputChange(evt) {
     const value = evt.target.value;
     setDeliveryAddress({
       ...deliveryAddress,
       [evt.target.name]: value,
     });
+
+    // setDeliveryAddressObject({
+    //   ...deliveryAddressObject,
+    //   [evt.target.name]: { value, error: deliveryAddressObject[evt.target.name].error || "no error" },
+    // });
   }
 
   const [chooseDeliveryOptionOpen, setChooseDeliveryOptionOpen] = useState(false);
+
+  const handleSaveClick = () => {
+    //form validation
+    const copy = { ...deliveryAddress };
+    for (let pos in copy) {
+      //pos - name
+      //copy[pos] - value
+
+      console.log(`Testing: ${pos} : ${copy[pos]} ---> ${regex[pos].test(copy[pos])}`);
+    }
+
+    //to close delivery option dropdown modal
+    setChooseDeliveryOptionOpen(false);
+  };
 
   return (
     <main className="bg-primary-2 p-3">
       <section className="">
         <div className="text-primary-11 font-body">Delivery</div>
-        <div className="flex justify-between items-center p-5">
+        <div
+          className="flex justify-between items-center p-3 rounded-md hover:bg-primary-4 hover:cursor-pointer"
+          onClick={() => setChooseDeliveryOptionOpen(!chooseDeliveryOptionOpen)}>
           <div className="flex items-center gap-3">
             <div onClick={() => {}}>
               {deliveryMethod === "delivery" ? <DeliveryIcon /> : deliveryMethod === "pickup" ? <PickUpIcon /> : "NONE"}
@@ -47,9 +74,7 @@ export default function DeliveryPanel() {
               </div>
             </div>
           </div>
-          <div
-            onClick={() => setChooseDeliveryOptionOpen(!chooseDeliveryOptionOpen)}
-            className="p-5 rounded-lg hover:bg-primary-4 hover:cursor-pointer">
+          <div className={`p-5 rounded-lg transition-all ${chooseDeliveryOptionOpen && "rotate-180"}`}>
             <RightMoreArrowIcon />
           </div>
         </div>
@@ -118,7 +143,7 @@ export default function DeliveryPanel() {
             </AnimatePresence>
             <section className="bg-primary-2 p-3">
               <div className="flex justify-center">
-                <Button type="submit" loading={false} onClick={() => setChooseDeliveryOptionOpen(false)}>
+                <Button type="submit" loading={false} onClick={handleSaveClick}>
                   Save
                 </Button>
               </div>
@@ -126,6 +151,7 @@ export default function DeliveryPanel() {
           </motion.section>
         )}
       </AnimatePresence>
+      <OrderSummary />
     </main>
   );
 }
