@@ -1,14 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import Sidebar from "components/admin/Sidebar";
-import JsonPreviewer from "components/JsonPreviewer";
+import { Button, MainContainer, Text, Heading } from "components/ui";
 import Navbar from "components/Navbar";
-import Button from "components/ui/Button";
-import { Input } from "components/ui/form/Input";
-import { Textarea } from "components/ui/form/Textarea";
+import { Input, Select, Textarea } from "components/ui/form";
 import SingleImage from "components/imageUploader/singleImage";
-import MainContainer from "components/ui/MainContainer";
-import { Select } from "components/ui/form/Select";
+import MainLayout from "components/layout/MainLayout";
 
 export default function AddImages() {
   const [addedImages, setAddedImages] = useState([
@@ -72,45 +68,44 @@ export default function AddImages() {
   };
 
   return (
-    <>
-      <Navbar />
-      <MainContainer>
-        <p className="font-body">Here you are going to add a new product to your products list.</p>
+    <MainContainer>
+      <Heading>Add Image</Heading>
+      <Text>Here you are going to add a new product to your products list.</Text>
 
-        <h1 className="my-2 text-xl font-display">Add one image</h1>
-        <form onSubmit={handleImageSubmit} className="flex flex-col gap-0 max-w-[400px]">
-          <Input label="Name" type="text" name="name" required />
-          <Input label="Image" type="file" name="image" required />
+      <form onSubmit={handleImageSubmit} className="flex flex-col gap-0 max-w-[400px] mt-5">
+        <Input label="Name" type="text" name="name" required />
+        <Input label="Image" type="file" name="image" required />
 
-          <Select label="Category" name="category" required>
-            <option disabled value="">
-              Choose category
-            </option>
-            <option value="vegetables">Vegetables</option>
-            <option value="fruits">Fruits</option>
-          </Select>
+        <Select label="Category" name="category" required>
+          <option disabled value="">
+            Choose category
+          </option>
+          <option value="vegetables">Vegetables</option>
+          <option value="fruits">Fruits</option>
+        </Select>
 
-          <div className="mt-3">
-            <Button type="submit" loading={isProcessing}>
-              Submit
-            </Button>
-          </div>
-        </form>
-        <div className="flex flex-row gap-5 my-10">
-          {addedImages.map((img, index) => (
-            <SingleImage
-              src={`${img?.src}?fit=fillmax&fill=solid&fill-color=F5FCF4&w=100&h=100`}
-              key={index}
-              main={img?.main}
-              onSetDefault={() => setMainImage(img)}
-              onRemove={() => setAddedImages(addedImages.filter((i) => i.src !== img.src))}
-            />
-            // <img src={`${img}?w=100`} alt="" key={index} />
-          ))}
+        <div className="mt-3">
+          <Button type="submit" loading={isProcessing}>
+            Submit
+          </Button>
         </div>
+      </form>
+      <div className="flex flex-row gap-5 my-10">
+        {addedImages.map((img, index) => (
+          <SingleImage
+            src={`${img?.src}?fit=fillmax&fill=solid&fill-color=F5FCF4&w=100&h=100`}
+            key={index}
+            main={img?.main}
+            onSetDefault={() => setMainImage(img)}
+            onRemove={() => setAddedImages(addedImages.filter((i) => i.src !== img.src))}
+          />
+          // <img src={`${img}?w=100`} alt="" key={index} />
+        ))}
+      </div>
 
-        {/* <pre>{JSON.stringify(formData, null, 2)}</pre> */}
-      </MainContainer>
-    </>
+      {/* <pre>{JSON.stringify(formData, null, 2)}</pre> */}
+    </MainContainer>
   );
 }
+
+AddImages.getLayout = (page) => <MainLayout>{page}</MainLayout>;

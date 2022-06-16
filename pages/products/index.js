@@ -12,6 +12,7 @@ import LoadingSpinner from "components/ui/LoadingSpinner";
 
 import useSWR from "swr";
 import MainContainer from "components/ui/MainContainer";
+import MainLayout from "components/layout/MainLayout";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -31,7 +32,6 @@ export default function Products({}) {
 
   return (
     <>
-      <Navbar />
       {/* <JsonPreviewer>{products}</JsonPreviewer> */}
       <MainContainer>
         <HorizontalRail>
@@ -43,7 +43,7 @@ export default function Products({}) {
                 All
               </span>
               <span className="min-w-[10px] text-center font-display text-primary-11">|</span>
-              {categories.map((category) => (
+              {categories.map((category, index) => (
                 <>
                   <span
                     onClick={() => setSelectedCategory(category.name)}
@@ -66,7 +66,7 @@ export default function Products({}) {
           <span className="min-w-[10px] text-center font-display text-primary-12">|</span>
           <span className="min-w-[80px] text-center font-display text-primary-12">Diary</span>
         </HorizontalRail>
-        <section className="flex flex-wrap w-full gap-3 my-5">
+        <section className="flex flex-wrap w-full justify-center gap-3 my-5">
           {!error && !products ? (
             <div className="mx-auto mt-5">
               <LoadingSpinner />
@@ -97,6 +97,10 @@ export default function Products({}) {
     </>
   );
 }
+
+Products.getLayout = function getLayout(page) {
+  return <MainLayout>{page}</MainLayout>;
+};
 
 //import prisma from "lib/prisma";
 

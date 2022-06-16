@@ -1,13 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import JsonPreviewer from "components/JsonPreviewer";
-import Navbar from "components/Navbar";
-import CartIcon from "components/ShoppingCart/CartIcon";
+import { useContext } from "react";
+import Link from "next/link";
+import MainLayout from "components/layout/MainLayout";
+import TransitionLayout from "components/layout/TransitionLayout";
 import CartItemRow from "components/ShoppingCart/CartItemRow";
 import { ShoppingCartContext } from "components/ShoppingCart/ShoppingCartContext";
-import Button from "components/ui/Button";
-import Heading from "components/ui/Heading";
-import MainContainer from "components/ui/MainContainer";
-import { useContext } from "react";
+import { Text, Heading, Button, MainContainer } from "components/ui";
 
 export default function Cart({}) {
   const { cartItems, cartItemsCount, cartItemsGrouped, addItem, removeItem, clearItems, totalPrice } =
@@ -15,8 +14,8 @@ export default function Cart({}) {
 
   return (
     <>
-      <Navbar />
       {/* <JsonPreviewer>{cartItems}</JsonPreviewer> */}
+
       <MainContainer width="xl">
         <section className="flex flex-row gap-2 items-center mt-3">
           <svg width={15} height={15} viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,6 +31,10 @@ export default function Cart({}) {
           </svg>
           <Heading>Your Cart</Heading>
         </section>
+        <Text>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, assumenda qui! Cum quo nulla ratione error
+          rem dolore iure dolor illo saepe soluta provident, odio fugiat autem, voluptatem molestias quisquam.
+        </Text>
 
         <section className="mt-5 flex flex-col justify-between w-full gap-3 max-w-xl">
           {cartItemsGrouped.map((group, index) => (
@@ -41,11 +44,28 @@ export default function Cart({}) {
             </>
           ))}
         </section>
-        <section className="flex flex-col w-full gap-3 mt-10">
+        <section className="w-full gap-3 mt-10">
           <hr className="border-primary-7" />
-          <span className="font-abhaya-libre text-primary-11 text-xl self-end">Total: {totalPrice.toFixed(2)}$</span>
+          <div className="flex justify-end">
+            <span className="font-abhaya-libre text-primary-11 text-xl self-end">Total: {totalPrice.toFixed(2)}$</span>
+          </div>
+          <div className="flex justify-end mt-3">
+            <Link href="/cart/checkout">
+              <a>
+                <Button>Checkout</Button>
+              </a>
+            </Link>
+          </div>
         </section>
       </MainContainer>
     </>
   );
 }
+
+Cart.getLayout = function getLayout(page) {
+  return (
+    <MainLayout>
+      <TransitionLayout key="cart">{page}</TransitionLayout>
+    </MainLayout>
+  );
+};

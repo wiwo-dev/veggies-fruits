@@ -1,6 +1,17 @@
 import React from "react";
 
-export function Select({ label, type, name, value, onChange, placeholder, required, error, children, ...rest }) {
+export default function Select({
+  label,
+  type,
+  name,
+  value,
+  onChange,
+  placeholder,
+  required,
+  error,
+  children,
+  ...rest
+}) {
   return (
     <div className="mb-2 ">
       <label htmlFor={name} className="block mb-2 text-sm font-medium text-primary-11 font-body">

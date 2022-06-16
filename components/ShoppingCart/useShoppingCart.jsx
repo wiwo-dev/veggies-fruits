@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 
 function useShoppingCart() {
   const [cartItemsCount, setCartItemsCount] = useState(0);
-
   const [cartItems, setCartItems] = useState([]);
   const [cartItemsGrouped, setCartItemsGrouped] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
