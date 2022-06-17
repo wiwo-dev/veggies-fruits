@@ -8,12 +8,11 @@ import PickUpIcon from "./PickUpIcon";
 import RightMoreArrowIcon from "./RightMoreArrowIcon";
 
 import { regex } from "components/Checkout/RegexValidation";
-import OrderSummary from "./OrderSummary";
 
 export default function DeliveryPanel() {
   const [deliveryMethod, setDeliveryMethod] = useState("delivery");
+  const [chooseDeliveryOptionOpen, setChooseDeliveryOptionOpen] = useState(false);
   const [deliveryAddress, setDeliveryAddress] = useState();
-  const [deliveryAddressObject, setDeliveryAddressObject] = useState();
 
   function handleInputChange(evt) {
     const value = evt.target.value;
@@ -27,8 +26,6 @@ export default function DeliveryPanel() {
     //   [evt.target.name]: { value, error: deliveryAddressObject[evt.target.name].error || "no error" },
     // });
   }
-
-  const [chooseDeliveryOptionOpen, setChooseDeliveryOptionOpen] = useState(false);
 
   const handleSaveClick = () => {
     //form validation
@@ -45,41 +42,38 @@ export default function DeliveryPanel() {
   };
 
   return (
-    <main className="bg-primary-2 p-3">
-      <section className="">
-        <div className="text-primary-11 font-body">Delivery</div>
-        <div
-          className="flex justify-between items-center p-3 rounded-md hover:bg-primary-4 hover:cursor-pointer"
-          onClick={() => setChooseDeliveryOptionOpen(!chooseDeliveryOptionOpen)}>
-          <div className="flex items-center gap-3">
-            <div onClick={() => {}}>
-              {deliveryMethod === "delivery" ? <DeliveryIcon /> : deliveryMethod === "pickup" ? <PickUpIcon /> : "NONE"}
-            </div>
-            <div className="flex flex-col">
-              <div className="text-sage font-body text-base">
-                {deliveryMethod === "delivery"
-                  ? "To Your address"
-                  : deliveryMethod === "pickup"
-                  ? "Self pick up"
-                  : "NONE"}
-              </div>
-              <div className="text-sage font-body text-sm">
-                {deliveryMethod === "delivery"
-                  ? deliveryAddress
-                    ? `${deliveryAddress.name} ${deliveryAddress.address} ${deliveryAddress.city}`
-                    : "Set address"
-                  : deliveryMethod === "pickup"
-                  ? "Pick your order at our shop"
-                  : "NONE"}
-              </div>
-            </div>
+    <>
+      <div className="text-primary-11 font-body">Delivery</div>
+      <div
+        className="flex justify-between items-center p-3 rounded-md hover:bg-primary-4 hover:cursor-pointer"
+        onClick={() => setChooseDeliveryOptionOpen(!chooseDeliveryOptionOpen)}>
+        <div className="flex items-center gap-3">
+          <div onClick={() => {}}>
+            {deliveryMethod === "delivery" ? <DeliveryIcon /> : deliveryMethod === "pickup" ? <PickUpIcon /> : "NONE"}
           </div>
-          <div className={`p-5 rounded-lg transition-all ${chooseDeliveryOptionOpen && "rotate-180"}`}>
-            <RightMoreArrowIcon />
+          <div className="flex flex-col">
+            <div className="text-sage font-body text-base">
+              {deliveryMethod === "delivery"
+                ? "To Your address"
+                : deliveryMethod === "pickup"
+                ? "Self pick up"
+                : "NONE"}
+            </div>
+            <div className="text-sage font-body text-sm">
+              {deliveryMethod === "delivery"
+                ? deliveryAddress
+                  ? `${deliveryAddress.name} ${deliveryAddress.address} ${deliveryAddress.city}`
+                  : "Set address"
+                : deliveryMethod === "pickup"
+                ? "Pick your order at our shop"
+                : "NONE"}
+            </div>
           </div>
         </div>
-      </section>
-
+        <div className={`p-5 rounded-lg transition-all ${chooseDeliveryOptionOpen && "rotate-180"}`}>
+          <RightMoreArrowIcon />
+        </div>
+      </div>
       <AnimatePresence>
         {chooseDeliveryOptionOpen && (
           <motion.section
@@ -105,7 +99,10 @@ export default function DeliveryPanel() {
                   className={`flex flex-col items-center gap-3 rounded-lg p-2 border-2 bg-primary-3 hover:bg-primary-4 hover:cursor-pointer ${
                     deliveryMethod === "pickup" ? "border-primary-6" : "border-primary-2"
                   }`}
-                  onClick={() => setDeliveryMethod("pickup")}>
+                  onClick={() => {
+                    setDeliveryMethod("pickup");
+                    setChooseDeliveryOptionOpen(false);
+                  }}>
                   <PickUpIcon />
                   <div className="flex flex-col items-center">
                     <div className="text-sage font-body text-base">Self pick up</div>
@@ -138,20 +135,18 @@ export default function DeliveryPanel() {
                 </Button>
               </div> */}
                   </form>
+                  <div className="flex justify-center">
+                    <Button type="submit" loading={false} onClick={handleSaveClick}>
+                      Save
+                    </Button>
+                  </div>
                 </motion.section>
               )}
             </AnimatePresence>
-            <section className="bg-primary-2 p-3">
-              <div className="flex justify-center">
-                <Button type="submit" loading={false} onClick={handleSaveClick}>
-                  Save
-                </Button>
-              </div>
-            </section>
+            <section className="bg-primary-2 p-3"></section>
           </motion.section>
         )}
       </AnimatePresence>
-      <OrderSummary />
-    </main>
+    </>
   );
 }

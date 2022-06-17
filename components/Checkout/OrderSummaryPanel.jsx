@@ -6,7 +6,7 @@ export default function OrderSummary() {
     useContext(ShoppingCartContext);
 
   return (
-    <section className="">
+    <>
       <div className="text-primary-11 font-body">Order summary</div>
       {cartItemsGrouped.map((group, index) => (
         <div key={index} className="flex justify-between items-center p-3 text-primary-12 font-body">
@@ -19,6 +19,6 @@ export default function OrderSummary() {
           <div className="">{(group.product.price * group.count).toFixed(2)}$</div>
         </div>
       ))}
-    </section>
+    </>
   );
 }
