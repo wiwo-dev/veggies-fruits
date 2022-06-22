@@ -14,7 +14,7 @@ export default function DeliveryPanel() {
   const [chooseDeliveryOptionOpen, setChooseDeliveryOptionOpen] = useState(false);
   const [deliveryAddress, setDeliveryAddress] = useState();
 
-  function handleInputChange(evt) {
+  const handleInputChange = (evt) => {
     const value = evt.target.value;
     setDeliveryAddress({
       ...deliveryAddress,
@@ -25,7 +25,7 @@ export default function DeliveryPanel() {
     //   ...deliveryAddressObject,
     //   [evt.target.name]: { value, error: deliveryAddressObject[evt.target.name].error || "no error" },
     // });
-  }
+  };
 
   const handleSaveClick = () => {
     //form validation
