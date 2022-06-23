@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import Sidebar from "components/admin/Sidebar";
 import JsonPreviewer from "components/JsonPreviewer";
-import Navbar from "components/Navbar";
+import Navbar from "components/Navbar/Navbar";
 import Button from "components/ui/Button";
 import { Input } from "components/ui/form/Input";
 import { Textarea } from "components/ui/form/Textarea";

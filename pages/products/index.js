@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import JsonPreviewer from "components/JsonPreviewer";
-import Navbar from "components/Navbar";
+import Navbar from "components/Navbar/Navbar";
 import ProductCard from "components/ProductCard/ProductCard";
 import AddToCardAnimation from "components/ui/AddToCardAnimation";
 import Button from "components/ui/Button";

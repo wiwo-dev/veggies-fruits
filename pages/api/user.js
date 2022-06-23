@@ -28,15 +28,17 @@ export default async function handle(req, res) {
     }
   }
 
-  const { name, image, address, city, country, phoneNumber } = req.body;
+  const { name, image, address, address2, city, country, postcode, phoneNumber } = req.body;
   let newUserData = Object.assign(
     {},
     name && { name },
     { email: session.token.email },
     image && { image },
     address && { address },
+    address2 && { address2 },
     city && { city },
     country && { country },
+    postcode && { postcode },
     phoneNumber && { phoneNumber }
   );
 

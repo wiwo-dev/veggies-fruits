@@ -6,7 +6,7 @@ import Image from "next/image";
 import spinnerGif from "public/Spinner-1s-200px.gif";
 
 export default function ProductCard({ product }) {
-  const { name, price, mainPhotoUrl } = product;
+  const { name, price, unit, mainPhotoUrl } = product;
 
   const [countAdded, setCountAdded] = useState(0);
 
@@ -44,11 +44,8 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <div className="w-[155px]">
-      <div
-        className="w-full h-[120px] bg-center bg-cover bg-gradient-to-tr from-primary-6 to-primary-8 relative"
-        //style={{ backgroundImage: `url("${mainPhotoUrl}?w=200")` }}
-      >
+    <div className="w-[155px] bg-primary-1">
+      <div className="w-full h-[120px] bg-gradient-to-tr from-primary-6 to-primary-8 relative">
         <Image
           src={`${mainPhotoUrl}?q=100&fit=facearea&w=155&h=120`}
           width="155px"
@@ -95,9 +92,12 @@ export default function ProductCard({ product }) {
         </motion.div>
       </div>
 
-      <div className="flex flex-row justify-between">
-        <p className="font-abhaya-libre text-primary-12">{name}</p>
-        <p className="font-abhaya-libre text-primary-11">{price.toFixed(2)}$</p>
+      <div className="flex flex-col justify-between p-3 pt-1">
+        <div className="flex flex-col mb-2 gap-0">
+          <p className="font-body text-primary-12 text-lg">{name}</p>
+          <p className="font-body text-sage text-sm lowercase">{unit}</p>
+        </div>
+        <p className="font-body self-start text-primary-11">{price.toFixed(2)}$</p>
       </div>
     </div>
   );

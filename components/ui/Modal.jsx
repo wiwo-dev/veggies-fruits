@@ -12,7 +12,7 @@ export default function Modal({ children, container }) {
 
   return mounted
     ? createPortal(
-        <div className="absolute top-0 right-0">
+        <div className="absolute top-0 right-0 z-10">
           <div>{children}</div>
         </div>,
         container

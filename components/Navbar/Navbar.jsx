@@ -1,11 +1,11 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useContext, useRef, useState } from "react";
-import { ShoppingCartContext } from "./ShoppingCart/ShoppingCartContext";
-import JsonPreviewer from "./JsonPreviewer";
+import { ShoppingCartContext } from "../ShoppingCart/ShoppingCartContext";
+import JsonPreviewer from "../JsonPreviewer";
 import Link from "next/link";
-import CartIcon from "./ShoppingCart/CartIcon";
-import { Modal } from "./ui";
-import UserAccountModal from "./Navbar/UserAccountModal";
+import CartIcon from "../ShoppingCart/CartIcon";
+import { Modal } from "../ui";
+import UserAccountModal from "./UserAccountModal";
 
 export default function Navbar() {
   const { cartItemsCount, cartItems } = useContext(ShoppingCartContext);

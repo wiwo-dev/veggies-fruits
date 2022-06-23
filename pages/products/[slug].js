@@ -1,5 +1,5 @@
 import JsonPreviewer from "components/JsonPreviewer";
-import Navbar from "components/Navbar";
+import Navbar from "components/Navbar/Navbar";
 
 export default function Page({ product }) {
   return (

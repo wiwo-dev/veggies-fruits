@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Button, MainContainer, Text, Heading } from "components/ui";
-import Navbar from "components/Navbar";
+import Navbar from "components/Navbar/Navbar";
 import { Input, Select, Textarea } from "components/ui/form";
 import SingleImage from "components/imageUploader/singleImage";
 import MainLayout from "components/layout/MainLayout";

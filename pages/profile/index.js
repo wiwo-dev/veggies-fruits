@@ -83,7 +83,9 @@ function Profile() {
 
         <Heading>Change your data here</Heading>
         {isLoadingUserData ? (
-          <LoadingSpinner />
+          <div className="flex justify-center">
+            <LoadingSpinner />
+          </div>
         ) : (
           <form className="">
             <Input
@@ -100,7 +102,21 @@ function Profile() {
               value={userData?.address || ""}
               onChange={handleInputChange}
             />
+            <Input
+              label="Address 2nd. line"
+              type="text"
+              name="address2"
+              value={userData?.address2 || ""}
+              onChange={handleInputChange}
+            />
             <Input label="City" type="text" name="city" value={userData?.city || ""} onChange={handleInputChange} />
+            <Input
+              label="Postcode"
+              type="text"
+              name="postcode"
+              value={userData?.postcode || ""}
+              onChange={handleInputChange}
+            />
             <Input
               label="Country"
               type="text"
