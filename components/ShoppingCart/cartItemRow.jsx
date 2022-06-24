@@ -1,34 +1,40 @@
 import { AnimateSharedLayout, LayoutGroup, motion, useAnimation } from "framer-motion";
 import { useEffect, useState, useContext } from "react";
 
-import { ShoppingCartContext } from "components/ShoppingCart/ShoppingCartContext";
+import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
 import Image from "next/image";
 
-export default function CartItemRow({ group }) {
-  const { name, mainPhotoUrl, price } = group.product;
-  const { count } = group;
+export default function CartItemRow({ cartItem }) {
+  const { name, mainPhotoUrl, unit, price } = cartItem.product;
+  const { quantity } = cartItem;
 
-  const { addItem, removeItem, removeAllItems } = useContext(ShoppingCartContext);
+  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
+    useContext(ECommerceContext);
 
-  const imageWidth = "110px";
-  const imageHeight = "80px";
+  const imageWidth = 110;
+  const imageHeight = 80;
 
   return (
     <div className="flex items-center gap-5 justify-between">
       <div className="">
         <div
-          className={`w-[${imageWidth}] h-[${imageHeight}] bg-center bg-cover bg-gradient-to-tr from-primary-6 to-primary-8 relative`}>
+          className={`w-[${imageWidth}px] h-[${imageHeight}px] 
+          bg-gradient-to-tr from-primary-6 to-primary-8
+          `}>
           <Image
-            src={`${mainPhotoUrl}?fit=facearea&w=155&h=120`}
+            src={`${mainPhotoUrl}?fit=facearea&w=${imageWidth}&h=${imageHeight}`}
             width={imageWidth}
             height={imageHeight}
-            className="object-cover w-[155px] h-[120px]"
+            //className="object-cover w-[155px] h-[120px]"
             alt={name}
           />
         </div>
-        <div className="font-abhaya-libre flex justify-between">
-          <span className="text-primary-12">{name}</span>
-          <span className="text-primary-11">{price.toFixed(2)}$</span>
+        <div className="flex flex-col justify-between pt-1">
+          <div className="flex flex-col mb-2 gap-0">
+            <p className="font-body text-primary-12 text-lg">{name}</p>
+            <span className="font-body text-sage text-sm lowercase">{unit}</span>
+            <span className="font-body self-start text-primary-11">{price.toFixed(2)}$</span>
+          </div>
         </div>
       </div>
 
@@ -38,7 +44,7 @@ export default function CartItemRow({ group }) {
             <button
               className="w-[36px] h-[36px] rounded-full bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
               onClick={() => {
-                removeItem({ cartItem: group.product });
+                removeProduct({ product: cartItem.product });
               }}>
               <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -49,11 +55,11 @@ export default function CartItemRow({ group }) {
               </svg>
             </button>
 
-            <span className="text-base font-bold text-white font-abhaya-libre">{count}</span>
+            <span className="text-base font-bold text-white font-abhaya-libre">{quantity}</span>
             <button
               className="w-[36px] h-[36px] rounded-full bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
               onClick={() => {
-                addItem({ cartItem: group.product });
+                addProduct({ product: cartItem.product });
               }}>
               <svg
                 layout="position"
@@ -71,7 +77,7 @@ export default function CartItemRow({ group }) {
             <button
               className="w-[36px] h-[36px] rounded-full bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
               onClick={() => {
-                removeAllItems({ cartItem: group.product });
+                removeAllProducts({ product: cartItem.product });
               }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -82,7 +88,7 @@ export default function CartItemRow({ group }) {
             </button>
           </div>
         </div>
-        <span className="font-abhaya-libre text-primary-11 text-lg"> {(price * count).toFixed(2)}$</span>
+        <span className="font-abhaya-libre text-primary-11 text-lg"> {(price * quantity).toFixed(2)}$</span>
       </div>
     </div>
   );

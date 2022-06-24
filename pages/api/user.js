@@ -11,7 +11,7 @@ export default async function handle(req, res) {
     });
   }
 
-  if (session.token.email) {
+  if (session?.token.email) {
     currentUser = await prisma.user.findUnique({
       where: { email: session.token.email },
       //include: { categories: { select: { name: true, id: true } } },

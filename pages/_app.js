@@ -1,9 +1,10 @@
 import "styles/globals.css";
 import { SessionProvider } from "next-auth/react";
-import useShoppingCart from "components/ShoppingCart/useShoppingCart";
+//import useShoppingCart from "components/ShoppingCart/useShoppingCart";
 
-import { ShoppingCartProvider } from "components/ShoppingCart/ShoppingCartContext";
+import { ECommerceProvider } from "components/ShoppingCart/ECommerceContext";
 import { AnimatePresence } from "framer-motion";
+import useECommerce from "components/ShoppingCart/useECommerce";
 
 function MyApp({ Component, pageProps: { session, ...pageProps }, router }) {
   // Use the layout defined at the page level, if available
@@ -11,15 +12,15 @@ function MyApp({ Component, pageProps: { session, ...pageProps }, router }) {
 
   const url = `https://veggiesandfruits.com/${router.route}`;
 
-  const shoppingCartProps = useShoppingCart();
+  const eCommerceProps = useECommerce();
 
   return (
     <SessionProvider session={session}>
-      <ShoppingCartProvider value={shoppingCartProps}>
+      <ECommerceProvider value={eCommerceProps}>
         <AnimatePresence exitBeforeEnter initial={false} onExitComplete={() => window.scrollTo(0, 0)}>
           {getLayout(<Component {...pageProps} key={url} />)}
         </AnimatePresence>
-      </ShoppingCartProvider>
+      </ECommerceProvider>
     </SessionProvider>
   );
 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function UserAccountModal({ onClose }) {
   const { data: session, status } = useSession();
   return (
-    <div className="min-w-[100px] bg-primary-3 rounded-xl p-2 border-2 border-primary-6">
+    <div className="min-w-[100px] bg-primary-3 rounded-xl p-10 border-2 border-primary-6">
       <div className="absolute right-3 top-3" onClick={onClose}>
         X
       </div>

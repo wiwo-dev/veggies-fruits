@@ -1,17 +1,19 @@
 import { AnimateSharedLayout, LayoutGroup, motion, useAnimation } from "framer-motion";
 import { useEffect, useState, useContext } from "react";
 
-import { ShoppingCartContext } from "components/ShoppingCart/ShoppingCartContext";
+import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
 import Image from "next/image";
 import spinnerGif from "public/Spinner-1s-200px.gif";
 
 export default function ProductCard({ product }) {
   const { name, price, unit, mainPhotoUrl } = product;
-
   const [countAdded, setCountAdded] = useState(0);
-
   const controls = useAnimation();
+  //const { addItem, removeItem, removeAllItems, cartItems, cartItemsGrouped } = useContext(ECommerceContext);
+  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
+    useContext(ECommerceContext);
 
+  //animation
   useEffect(() => {
     if (countAdded > 0) {
       controls.start({
@@ -26,21 +28,20 @@ export default function ProductCard({ product }) {
     }
   }, [countAdded]);
 
-  const { addItem, removeItem, removeAllItems, cartItems, cartItemsGrouped } = useContext(ShoppingCartContext);
-
+  //to set
   useEffect(() => {
-    const found = cartItemsGrouped.find((item) => item.product.slug === product.slug);
-    if (found) setCountAdded(found.count);
-  }, [cartItemsGrouped]);
+    const found = cartItems.find((item) => item.productId === product.id);
+    if (found) setCountAdded(found.quantity);
+  }, [cartItems]);
 
   const handleClickPlus = () => {
     setCountAdded(countAdded + 1);
-    addItem({ cartItem: product });
+    addProduct({ product });
   };
 
   const handleClickDelete = () => {
     setCountAdded(0);
-    removeAllItems({ cartItem: product });
+    removeAllProducts({ product });
   };
 
   return (

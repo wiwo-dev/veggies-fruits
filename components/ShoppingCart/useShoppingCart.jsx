@@ -1,7 +1,7 @@
 import { data } from "autoprefixer";
 import React, { useEffect, useState } from "react";
 
-function useShoppingCart() {
+export default function useShoppingCart() {
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [cartItemsGrouped, setCartItemsGrouped] = useState([]);
@@ -9,7 +9,6 @@ function useShoppingCart() {
 
   useEffect(() => {
     setCartItemsCount(cartItems.length);
-
     const grouped = cartItems.reduce((acc, item) => {
       const group = acc.find((group) => group.product.slug === item.slug);
       if (group) {
@@ -66,19 +65,7 @@ function useShoppingCart() {
   const removeAllItems = ({ cartItem }) => {
     const filtered = cartItems.filter((item) => item.slug !== cartItem.slug);
     setCartItems([...filtered]);
-    // const group = cartItemsGrouped.find((itemsGroup) => itemsGroup.product.slug === cartItem.slug);
-    // console.log(group);
-    // if (group) {
-    //   for (let i = 0; i < group.count; i++) {
-    //     console.log("removing num: ", i);
-    //     removeItem({ cartItem });
-    //     console.log("current items length: ", cartItems.length);
-    //   }
-    // }
-    // //setCartItemsCount(0);
   };
 
   return { cartItems, cartItemsCount, cartItemsGrouped, totalPrice, addItem, removeItem, removeAllItems };
 }
-
-export default useShoppingCart;

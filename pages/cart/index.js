@@ -5,12 +5,12 @@ import Link from "next/link";
 import MainLayout from "components/layout/MainLayout";
 import TransitionLayout from "components/layout/TransitionLayout";
 import CartItemRow from "components/ShoppingCart/CartItemRow";
-import { ShoppingCartContext } from "components/ShoppingCart/ShoppingCartContext";
+import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
 import { Text, Heading, Button, MainContainer } from "components/ui";
 
 export default function Cart({}) {
-  const { cartItems, cartItemsCount, cartItemsGrouped, addItem, removeItem, clearItems, totalPrice } =
-    useContext(ShoppingCartContext);
+  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
+    useContext(ECommerceContext);
 
   return (
     <>
@@ -37,10 +37,10 @@ export default function Cart({}) {
         </Text>
 
         <section className="mt-5 flex flex-col justify-between w-full gap-3 max-w-xl">
-          {cartItemsGrouped.map((group, index) => (
+          {cartItems.map((cartItem, index) => (
             <>
-              <CartItemRow key={index} group={group} />
-              {index < cartItemsGrouped.length - 1 && <hr className="border-primary-7" />}
+              <CartItemRow key={index} cartItem={cartItem} />
+              {index < cartItem.quantity - 1 && <hr className="border-primary-7" />}
             </>
           ))}
         </section>

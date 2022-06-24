@@ -4,14 +4,13 @@ import { useContext } from "react";
 import Link from "next/link";
 import MainLayout from "components/layout/MainLayout";
 import TransitionLayout from "components/layout/TransitionLayout";
-import CartItemRow from "components/ShoppingCart/CartItemRow";
-import { ShoppingCartContext } from "components/ShoppingCart/ShoppingCartContext";
+import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
 import { Text, Heading, Button, MainContainer } from "components/ui";
 import Confetti from "components/Confetti";
 
 export default function PayPage({}) {
-  const { cartItems, cartItemsCount, cartItemsGrouped, addItem, removeItem, clearItems, totalPrice } =
-    useContext(ShoppingCartContext);
+  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
+    useContext(ECommerceContext);
 
   return (
     <>

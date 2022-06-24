@@ -1,6 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useContext, useRef, useState } from "react";
-import { ShoppingCartContext } from "../ShoppingCart/ShoppingCartContext";
+import { ECommerceContext } from "../ShoppingCart/ECommerceContext";
 import JsonPreviewer from "../JsonPreviewer";
 import Link from "next/link";
 import CartIcon from "../ShoppingCart/CartIcon";
@@ -8,7 +8,8 @@ import { Modal } from "../ui";
 import UserAccountModal from "./UserAccountModal";
 
 export default function Navbar() {
-  const { cartItemsCount, cartItems } = useContext(ShoppingCartContext);
+  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
+    useContext(ECommerceContext);
   const refForDropdownModal = useRef();
   const { data: session } = useSession();
   const [userAccountModalOpen, setUserAccountModalOpen] = useState(false);
@@ -69,7 +70,7 @@ export default function Navbar() {
           )}
           <Link href="/cart">
             <a className="flex flex-row">
-              <CartIcon cartItemsCount={cartItems.length} />
+              <CartIcon cartItemsCount={productsCount} />
             </a>
           </Link>
         </div>

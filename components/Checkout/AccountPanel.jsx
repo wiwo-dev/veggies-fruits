@@ -1,12 +1,12 @@
-import { ShoppingCartContext } from "components/ShoppingCart/ShoppingCartContext";
+import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
 import { useContext, useState } from "react";
 import AccountIcon from "./AccountIcon";
 import NoAccountIcon from "./NoAccountIcon";
 import RightMoreArrowIcon from "./RightMoreArrowIcon";
 
 export default function AccountPanel() {
-  const { cartItems, cartItemsCount, cartItemsGrouped, addItem, removeItem, clearItems, totalPrice } =
-    useContext(ShoppingCartContext);
+  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
+    useContext(ECommerceContext);
 
   const [accountMethod, setAccountMethod] = useState("noaccount");
   const [chooseAccountOptionOpen, setChooseAccountOptionOpen] = useState(false);

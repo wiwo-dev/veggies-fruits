@@ -7,12 +7,14 @@ import Button from "components/ui/Button";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRef, useState } from "react";
 import { MdShoppingCart } from "react-icons/md";
-import HorizontalRail from "components/HorizontalRail";
+import HorizontalRail from "components/ui/HorizontalRail/HorizontalRail";
 import LoadingSpinner from "components/ui/LoadingSpinner";
 
 import useSWR from "swr";
 import MainContainer from "components/ui/MainContainer";
 import MainLayout from "components/layout/MainLayout";
+import HorizontalRailItem from "components/ui/HorizontalRail/HorizontalRailItem";
+import Category from "components/Categories/Category";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -22,7 +24,7 @@ const capitalizeFirstLetter = (string) => {
 
 export default function Products({}) {
   const { data: session } = useSession();
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const { data: products, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/product${selectedCategory ? `?category=${selectedCategory}` : ""}`,
@@ -34,38 +36,30 @@ export default function Products({}) {
     <>
       {/* <JsonPreviewer>{products}</JsonPreviewer> */}
       <MainContainer>
-        <HorizontalRail>
-          {categories && (
-            <>
-              <span
-                onClick={() => setSelectedCategory("")}
-                className="min-w-[80px] text-center font-display text-primary-11">
-                All
-              </span>
-              <span className="min-w-[10px] text-center font-display text-primary-11">|</span>
-              {categories.map((category, index) => (
-                <>
-                  <span
-                    onClick={() => setSelectedCategory(category.name)}
-                    className={`min-w-[120px] text-center font-display ${
-                      selectedCategory === category.name ? "text-primary-11" : "text-primary-10"
-                    }`}>
-                    {capitalizeFirstLetter(category.name)}
-                  </span>
-                  <span className="min-w-[10px] text-center font-display text-primary-11">|</span>
-                </>
-              ))}
-            </>
-          )}
-
-          <span className="min-w-[80px] text-center font-display text-primary-12">Diary</span>
-          <span className="min-w-[10px] text-center font-display text-primary-12">|</span>
-          <span className="min-w-[80px] text-center font-display text-primary-12">Veggies</span>
-          <span className="min-w-[10px] text-center font-display text-primary-12">|</span>
-          <span className="min-w-[80px] text-center font-display text-primary-12">Fruits</span>
-          <span className="min-w-[10px] text-center font-display text-primary-12">|</span>
-          <span className="min-w-[80px] text-center font-display text-primary-12">Diary</span>
-        </HorizontalRail>
+        <section className="h-[150px]">
+          <HorizontalRail height={100} oneClickDistance={100}>
+            {categories && (
+              <>
+                <button onClick={() => setSelectedCategory("")} className="">
+                  <HorizontalRailItem>
+                    <Category label="All" icon="shopping-basket" active={selectedCategory === "" && true} />
+                  </HorizontalRailItem>
+                </button>
+                {categories.map((category, index) => (
+                  <button key={index} onClick={() => setSelectedCategory(category.name)}>
+                    <HorizontalRailItem>
+                      <Category
+                        label={capitalizeFirstLetter(category.name)}
+                        icon={category.icon}
+                        active={selectedCategory === category.name && true}
+                      />
+                    </HorizontalRailItem>
+                  </button>
+                ))}
+              </>
+            )}
+          </HorizontalRail>
+        </section>
         <section className="flex flex-wrap w-full justify-center gap-3 my-5">
           {!error && !products ? (
             <div className="mx-auto mt-5">

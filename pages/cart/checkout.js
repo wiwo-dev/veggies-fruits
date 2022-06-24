@@ -7,23 +7,22 @@ import DeliveryPanel from "components/Checkout/DeliveryPanel";
 import AccountPanel from "components/Checkout/AccountPanel";
 import OrderSummary from "components/Checkout/OrderSummaryPanel";
 import { useContext, useState } from "react";
-import { ShoppingCartContext } from "components/ShoppingCart/ShoppingCartContext";
+import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
 import axios from "axios";
 import { useRouter } from "next/router";
 
 export default function Checkout() {
-  const { cartItems, cartItemsCount, cartItemsGrouped, addItem, removeItem, clearItems, totalPrice } =
-    useContext(ShoppingCartContext);
+  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
+    useContext(ECommerceContext);
 
   const [isProcessing, setIsProcessing] = useState(false);
-
   const router = useRouter();
 
   const sendOrder = async () => {
     //object to send as request body
-    const CartItems = cartItemsGrouped.map((cartItem) => ({
-      productId: cartItem.product.id,
-      quantity: cartItem.count,
+    const CartItems = cartItems.map((cartItem) => ({
+      productId: cartItem.productId,
+      quantity: cartItem.quantity,
     }));
 
     const requestBody = {

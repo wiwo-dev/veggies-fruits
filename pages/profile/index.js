@@ -119,14 +119,14 @@ function Profile() {
             />
             <Input
               label="Country"
-              type="text"
+              type="url"
               name="country"
               value={userData?.country || ""}
               onChange={handleInputChange}
             />
             <Input
               label="Phone"
-              type="text"
+              type="tel"
               name="phoneNumber"
               value={userData?.phoneNumber || ""}
               onChange={handleInputChange}
