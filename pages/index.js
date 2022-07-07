@@ -13,8 +13,23 @@ export default function Home() {
       <Navbar />
       <JsonPreviewer>{session}</JsonPreviewer>
       <MainContainer width="xl">
-        <section className="bg-primary-1 h-[100px]">
-          <HorizontalRail height={100} oneClickDistance={100}>
+        <section className="bg-primary-1">
+          <HorizontalRail gap={3}>
+            <HorizontalRailItem>
+              <Category label="All" icon="shopping-basket" active />
+            </HorizontalRailItem>
+            <HorizontalRailItem>
+              <Category label="Fruits" icon="apple" />
+            </HorizontalRailItem>
+            <HorizontalRailItem>
+              <Category label="Veggies" icon="carrot" />
+            </HorizontalRailItem>
+            <HorizontalRailItem>
+              <Category label="Bakery" icon="bakery" />
+            </HorizontalRailItem>
+            <HorizontalRailItem>
+              <Category label="Diary" icon="5" />
+            </HorizontalRailItem>
             <HorizontalRailItem>
               <Category label="All" icon="shopping-basket" active />
             </HorizontalRailItem>

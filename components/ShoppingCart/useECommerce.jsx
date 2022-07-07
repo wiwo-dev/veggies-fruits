@@ -1,4 +1,5 @@
 import { data } from "autoprefixer";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
 export default function useECommerce() {
@@ -6,6 +7,7 @@ export default function useECommerce() {
   const [cartItems, setCartItems] = useState([]);
   //const [cartItemsGrouped, setCartItemsGrouped] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [order, setOrder] = useState({});
 
   useEffect(() => {
     //set total number of products
@@ -17,6 +19,19 @@ export default function useECommerce() {
       }, 0)
     );
   }, [cartItems]);
+
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }
+  }, [cartItems]);
+
+  useEffect(() => {
+    const local = localStorage.getItem("cartItems");
+    if (local) {
+      setCartItems(JSON.parse(local));
+    }
+  }, []);
 
   const addProduct = ({ product }) => {
     const cartItemsCopy = [...cartItems];
@@ -57,5 +72,20 @@ export default function useECommerce() {
     setCartItems(filtered);
   };
 
-  return { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts };
+  const emptyCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("cartItems");
+  };
+
+  return {
+    cartItems,
+    productsCount,
+    totalPrice,
+    addProduct,
+    removeProduct,
+    removeAllProducts,
+    emptyCart,
+    order,
+    setOrder,
+  };
 }

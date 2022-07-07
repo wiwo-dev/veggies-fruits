@@ -136,6 +136,14 @@ export default NextAuth({
         session.token = token;
       }
 
+      const prismaUser = await prisma.user.findUnique({
+        where: {
+          email: token.email,
+        },
+      });
+
+      if (prismaUser) session.dbUser = prismaUser;
+
       return session;
     },
   },

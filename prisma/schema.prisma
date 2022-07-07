@@ -84,11 +84,12 @@ model CartItem {
 }
 
 model Order {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  status    String     @default("NEW_ORDER")
-  userId    String?    @unique
-  user      User?      @relation(fields: [userId], references: [id])
-  CartItems CartItem[]
+  id              Int        @id @default(autoincrement())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  status          String     @default("NEW_ORDER")
+  userId          String?
+  user            User?      @relation(fields: [userId], references: [id])
+  CartItems       CartItem[]
+  deliveryAddress Json?
 }

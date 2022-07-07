@@ -10,13 +10,41 @@ import { useContext, useState } from "react";
 import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import JsonPreviewer from "components/JsonPreviewer";
 
 export default function Checkout() {
-  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
-    useContext(ECommerceContext);
-
+  const {
+    cartItems,
+    productsCount,
+    totalPrice,
+    addProduct,
+    removeProduct,
+    removeAllProducts,
+    emptyCart,
+    order,
+    setOrder,
+  } = useContext(ECommerceContext);
   const [isProcessing, setIsProcessing] = useState(false);
   const router = useRouter();
+
+  const [deliveryAddress, setDeliveryAddress] = useState({});
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    console.log(session?.dbUser);
+    setDeliveryAddress({
+      name: session?.dbUser.name,
+      email: session?.dbUser.email,
+      address: session?.dbUser.address,
+      address2: session?.dbUser.address2,
+      city: session?.dbUser.city,
+      postcode: session?.dbUser.postcode,
+      country: session?.dbUser.country,
+      phoneNumber: session?.dbUser.phoneNumber,
+    });
+  }, [session]);
 
   const sendOrder = async () => {
     //object to send as request body
@@ -28,6 +56,7 @@ export default function Checkout() {
     const requestBody = {
       status: "NEW_SEND",
       CartItems,
+      deliveryAddress,
     };
 
     const config = {
@@ -39,12 +68,14 @@ export default function Checkout() {
 
     setIsProcessing(true);
     const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/order`, requestBody, config);
-    const { status } = response;
+    const { status, data: newOrder } = response;
     console.log(response);
     if (status === 200) {
-      console.log("Success:");
+      console.log("Success!");
+      setOrder(newOrder);
+      emptyCart();
       setIsProcessing(false);
-      router.push("/cart/pay");
+      router.push(`/cart/pay?order=${JSON.stringify(newOrder)}`);
     } else {
       console.log("ERROR");
       setIsProcessing(false);
@@ -54,6 +85,7 @@ export default function Checkout() {
   return (
     <>
       <MainContainer width="xl">
+        <JsonPreviewer>{session}</JsonPreviewer>
         <Heading>Checkout</Heading>
         <Text>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex sit explicabo est similique labore assumenda
@@ -64,7 +96,7 @@ export default function Checkout() {
           <AccountPanel />
         </section>
         <section className="bg-primary-2 p-3 my-2">
-          <DeliveryPanel />
+          <DeliveryPanel deliveryAddress={deliveryAddress} setDeliveryAddress={setDeliveryAddress} />
         </section>
         <section className="bg-primary-2 p-3 my-2">
           <OrderSummary />

@@ -7,12 +7,9 @@ import DeliveryIcon from "./DeliveryIcon";
 import PickUpIcon from "./PickUpIcon";
 import RightMoreArrowIcon from "./RightMoreArrowIcon";
 
-import { regex } from "components/Checkout/RegexValidation";
-
-export default function DeliveryPanel() {
+export default function DeliveryPanel({ deliveryAddress, setDeliveryAddress }) {
   const [deliveryMethod, setDeliveryMethod] = useState("delivery");
   const [chooseDeliveryOptionOpen, setChooseDeliveryOptionOpen] = useState(false);
-  const [deliveryAddress, setDeliveryAddress] = useState();
 
   const handleInputChange = (evt) => {
     const value = evt.target.value;
@@ -20,60 +17,89 @@ export default function DeliveryPanel() {
       ...deliveryAddress,
       [evt.target.name]: value,
     });
-
-    // setDeliveryAddressObject({
-    //   ...deliveryAddressObject,
-    //   [evt.target.name]: { value, error: deliveryAddressObject[evt.target.name].error || "no error" },
-    // });
   };
 
   const handleSaveClick = () => {
     //form validation
     const copy = { ...deliveryAddress };
-    for (let pos in copy) {
-      //pos - name
-      //copy[pos] - value
+    // for (let pos in copy) {
+    //   //pos - name
+    //   //copy[pos] - value
 
-      console.log(`Testing: ${pos} : ${copy[pos]} ---> ${regex[pos].test(copy[pos])}`);
-    }
+    //   console.log(`Testing: ${pos} : ${copy[pos]} ---> ${regex[pos].test(copy[pos])}`);
+    // }
 
     //to close delivery option dropdown modal
     setChooseDeliveryOptionOpen(false);
   };
 
-  return (
-    <>
-      <div className="text-primary-11 font-body">Delivery</div>
+  function DeliveryBox({ icon, heading, text, onClick, isSelected }) {
+    return (
+      <div
+        className={`flex flex-col items-center gap-3 rounded-lg p-2 border-2 bg-primary-3 hover:bg-primary-4 hover:cursor-pointer ${
+          isSelected ? "border-primary-6" : "border-primary-2"
+        }`}
+        onClick={onClick}>
+        {icon}
+        <div className="flex flex-col items-center">
+          <div className="text-sage font-body text-base">{heading}</div>
+          <div className="text-sage font-body text-center text-sm">{text}</div>
+        </div>
+      </div>
+    );
+  }
+
+  function DeliveryShortenedPanel({ icon, heading, lines }) {
+    return (
       <div
         className="flex justify-between items-center p-3 rounded-md hover:bg-primary-4 hover:cursor-pointer"
         onClick={() => setChooseDeliveryOptionOpen(!chooseDeliveryOptionOpen)}>
         <div className="flex items-center gap-3">
-          <div onClick={() => {}}>
-            {deliveryMethod === "delivery" ? <DeliveryIcon /> : deliveryMethod === "pickup" ? <PickUpIcon /> : "NONE"}
-          </div>
+          <div>{icon}</div>
           <div className="flex flex-col">
-            <div className="text-sage font-body text-base">
-              {deliveryMethod === "delivery"
-                ? "To Your address"
-                : deliveryMethod === "pickup"
-                ? "Self pick up"
-                : "NONE"}
-            </div>
-            <div className="text-sage font-body text-sm">
-              {deliveryMethod === "delivery"
-                ? deliveryAddress
-                  ? `${deliveryAddress.name} ${deliveryAddress.address} ${deliveryAddress.city}`
-                  : "Set address"
-                : deliveryMethod === "pickup"
-                ? "Pick your order at our shop"
-                : "NONE"}
-            </div>
+            <div className="text-sage font-body text-base">{heading}</div>
+            {lines.map((line, index) => (
+              <div key={index} className="text-sage font-body text-sm">
+                {line}
+              </div>
+            ))}
           </div>
         </div>
         <div className={`p-5 rounded-lg transition-all ${chooseDeliveryOptionOpen && "rotate-180"}`}>
           <RightMoreArrowIcon />
         </div>
       </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="text-primary-11 font-body">Delivery</div>
+      <div className="text-sage font-body text-sm">How would you like us to deliver your order?</div>
+      {deliveryMethod === "delivery" ? (
+        <DeliveryShortenedPanel
+          icon={<DeliveryIcon />}
+          heading={"To Your address"}
+          lines={
+            deliveryAddress
+              ? [
+                  `${deliveryAddress.name} ${deliveryAddress.address || ""} ${deliveryAddress.address2 || ""}`,
+                  `${deliveryAddress.postcode} ${deliveryAddress.city}, ${deliveryAddress.country}`,
+                  `${deliveryAddress.email} ${deliveryAddress.phoneNumber}`,
+                ]
+              : ["No address"]
+          }
+        />
+      ) : deliveryMethod === "pickup" ? (
+        <DeliveryShortenedPanel
+          icon={<PickUpIcon />}
+          heading={"Self pick up"}
+          lines={["Pick your order at our shop"]}
+        />
+      ) : (
+        ""
+      )}
+
       <AnimatePresence>
         {chooseDeliveryOptionOpen && (
           <motion.section
@@ -84,31 +110,23 @@ export default function DeliveryPanel() {
             <section className="">
               <div className="text-primary-11 font-body">Choose delivery option</div>
               <div className="flex justify-between items-center p-5">
-                <div
-                  className={`flex flex-col items-center gap-3 rounded-lg p-2 border-2 bg-primary-3 hover:bg-primary-4 hover:cursor-pointer ${
-                    deliveryMethod === "delivery" ? "border-primary-6" : "border-primary-2"
-                  }`}
-                  onClick={() => setDeliveryMethod("delivery")}>
-                  <DeliveryIcon />
-                  <div className="flex flex-col items-center">
-                    <div className="text-sage font-body text-base">Delivery</div>
-                    <div className="text-sage font-body text-center text-sm">We will deliver to your address</div>
-                  </div>
-                </div>
-                <div
-                  className={`flex flex-col items-center gap-3 rounded-lg p-2 border-2 bg-primary-3 hover:bg-primary-4 hover:cursor-pointer ${
-                    deliveryMethod === "pickup" ? "border-primary-6" : "border-primary-2"
-                  }`}
+                <DeliveryBox
+                  heading={"Delivery"}
+                  text={"We will deliver to your address"}
+                  isSelected={deliveryMethod === "delivery"}
+                  onClick={() => setDeliveryMethod("delivery")}
+                  icon={<DeliveryIcon />}
+                />
+                <DeliveryBox
+                  heading={"Self pickup"}
+                  text={"Pick your order at our shop"}
+                  isSelected={deliveryMethod === "pickup"}
                   onClick={() => {
                     setDeliveryMethod("pickup");
                     setChooseDeliveryOptionOpen(false);
-                  }}>
-                  <PickUpIcon />
-                  <div className="flex flex-col items-center">
-                    <div className="text-sage font-body text-base">Self pick up</div>
-                    <div className="text-sage font-body text-center text-sm">Pick your order at our shop</div>
-                  </div>
-                </div>
+                  }}
+                  icon={<PickUpIcon />}
+                />
               </div>
             </section>
             <AnimatePresence initial={false}>
@@ -121,19 +139,62 @@ export default function DeliveryPanel() {
                   transition={{ duration: 0.4 }}>
                   <div className="text-primary-11 font-body">Your address</div>
                   <form className="">
-                    <Input label="Name and surname" type="text" name="name" required onChange={handleInputChange} />
-                    <Input label="Address" type="text" name="address" required onChange={handleInputChange} />
-                    <Input label="Address 2. line" type="text" name="address2" required onChange={handleInputChange} />
-                    <Input label="City" type="text" name="city" required onChange={handleInputChange} />
-                    <Input label="Postcode" type="text" name="postcode" required onChange={handleInputChange} />
-                    <Input label="Country" type="text" name="country" required onChange={handleInputChange} />
-                    <Input label="Phone" type="text" name="phone" required onChange={handleInputChange} />
-
-                    {/* <div className="mt-3 flex justify-center">
-                <Button type="submit" loading={false}>
-                  Save address
-                </Button>
-              </div> */}
+                    <Input
+                      label="Name and surname"
+                      type="text"
+                      name="name"
+                      value={deliveryAddress?.name || ""}
+                      onChange={handleInputChange}
+                    />
+                    <Input
+                      label="Address"
+                      type="text"
+                      name="address"
+                      value={deliveryAddress?.address || ""}
+                      onChange={handleInputChange}
+                    />
+                    <Input
+                      label="Address 2. line"
+                      type="text"
+                      name="address2"
+                      value={deliveryAddress?.address2 || ""}
+                      onChange={handleInputChange}
+                    />
+                    <Input
+                      label="City"
+                      type="text"
+                      name="city"
+                      value={deliveryAddress?.city || ""}
+                      onChange={handleInputChange}
+                    />
+                    <Input
+                      label="Postcode"
+                      type="text"
+                      name="postcode"
+                      value={deliveryAddress?.postcode || ""}
+                      onChange={handleInputChange}
+                    />
+                    <Input
+                      label="Country"
+                      type="text"
+                      name="country"
+                      value={deliveryAddress?.country || ""}
+                      onChange={handleInputChange}
+                    />
+                    <Input
+                      label="Phone"
+                      type="text"
+                      name="phone"
+                      value={deliveryAddress?.phone || ""}
+                      onChange={handleInputChange}
+                    />
+                    <Input
+                      label="Email"
+                      type="text"
+                      name="email"
+                      value={deliveryAddress?.email || ""}
+                      onChange={handleInputChange}
+                    />
                   </form>
                   <div className="flex justify-center">
                     <Button type="submit" loading={false} onClick={handleSaveClick}>

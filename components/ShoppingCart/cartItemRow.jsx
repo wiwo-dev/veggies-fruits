@@ -18,14 +18,12 @@ export default function CartItemRow({ cartItem }) {
     <div className="flex items-center gap-5 justify-between">
       <div className="">
         <div
-          className={`w-[${imageWidth}px] h-[${imageHeight}px] 
-          bg-gradient-to-tr from-primary-6 to-primary-8
-          `}>
+          className={`w-[${imageWidth}px] relative bg-gradient-to-r from-green-200 to-green-700`}
+          style={{ height: `${imageHeight}px` }}>
           <Image
             src={`${mainPhotoUrl}?fit=facearea&w=${imageWidth}&h=${imageHeight}`}
             width={imageWidth}
             height={imageHeight}
-            //className="object-cover w-[155px] h-[120px]"
             alt={name}
           />
         </div>

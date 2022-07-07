@@ -8,7 +8,6 @@ import React, { useEffect, useState } from "react";
 
 function Profile() {
   const { data: session, status } = useSession();
-
   const [userData, setUserData] = useState();
   const [isProcessing, setIsProcessing] = useState(false);
   const [isLoadingUserData, setIsLoadingUserData] = useState(false);

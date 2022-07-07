@@ -9,7 +9,7 @@ import { Text, Heading, Button, MainContainer } from "components/ui";
 import Confetti from "components/Confetti";
 
 export default function PayPage({}) {
-  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
+  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts, order, setOrder } =
     useContext(ECommerceContext);
 
   return (
@@ -18,9 +18,8 @@ export default function PayPage({}) {
 
       <MainContainer width="xl">
         <Heading>Yeah!</Heading>
-
         <Text>Yeah! We have your order. Now you have to pay! 💸</Text>
-
+        <JsonPreviewer>{order}</JsonPreviewer>
         <section className="my-5">
           <Link href="/cart/checkout">
             <a>

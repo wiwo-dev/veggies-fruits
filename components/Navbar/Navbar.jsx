@@ -25,7 +25,7 @@ export default function Navbar() {
         </Link>
 
         <div className="flex gap-5 items-center">
-          <div className="relative" onClick={() => setUserAccountModalOpen(!userAccountModalOpen)}>
+          <div className="relative flex items-center" onClick={() => setUserAccountModalOpen(!userAccountModalOpen)}>
             {session ? (
               <>
                 <div className="flex items-center">
@@ -68,7 +68,7 @@ export default function Navbar() {
               <UserAccountModal onClose={() => setUserAccountModalOpen(false)} />
             </Modal>
           )}
-          <Link href="/cart">
+          <Link href="/cart/view">
             <a className="flex flex-row">
               <CartIcon cartItemsCount={productsCount} />
             </a>

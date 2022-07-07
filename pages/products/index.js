@@ -35,31 +35,29 @@ export default function Products({}) {
   return (
     <>
       {/* <JsonPreviewer>{products}</JsonPreviewer> */}
-      <MainContainer>
-        <section className="h-[150px]">
-          <HorizontalRail height={100} oneClickDistance={100}>
-            {categories && (
-              <>
-                <button onClick={() => setSelectedCategory("")} className="">
+      <MainContainer width="xl">
+        <HorizontalRail gap={3} height={100}>
+          {categories && (
+            <>
+              <button onClick={() => setSelectedCategory("")} className="">
+                <HorizontalRailItem>
+                  <Category label="All" icon="shopping-basket" active={selectedCategory === "" && true} />
+                </HorizontalRailItem>
+              </button>
+              {categories.map((category, index) => (
+                <button key={index} onClick={() => setSelectedCategory(category.name)}>
                   <HorizontalRailItem>
-                    <Category label="All" icon="shopping-basket" active={selectedCategory === "" && true} />
+                    <Category
+                      label={capitalizeFirstLetter(category.name)}
+                      icon={category.icon}
+                      active={selectedCategory === category.name && true}
+                    />
                   </HorizontalRailItem>
                 </button>
-                {categories.map((category, index) => (
-                  <button key={index} onClick={() => setSelectedCategory(category.name)}>
-                    <HorizontalRailItem>
-                      <Category
-                        label={capitalizeFirstLetter(category.name)}
-                        icon={category.icon}
-                        active={selectedCategory === category.name && true}
-                      />
-                    </HorizontalRailItem>
-                  </button>
-                ))}
-              </>
-            )}
-          </HorizontalRail>
-        </section>
+              ))}
+            </>
+          )}
+        </HorizontalRail>
         <section className="flex flex-wrap w-full justify-center gap-3 my-5">
           {!error && !products ? (
             <div className="mx-auto mt-5">
