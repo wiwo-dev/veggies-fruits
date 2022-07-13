@@ -6,7 +6,7 @@ export default function Button({ children, loading, disabled, ...rest }) {
     <button
       {...rest}
       disabled={disabled ? true : loading && true}
-      className={`relative flex h-[36px] items-center justify-center rounded-xl border-2  px-4 align-middle shadow-lg transition-all duration-100 ${
+      className={`relative inline-block flex h-[36px] items-center justify-center rounded-xl border-2  px-4 align-middle shadow-lg transition-all duration-100 ${
         disabled || loading
           ? "bg-primary-7"
           : "bg-primary-9 hover:bg-primary-10 active:border-2 active:border-primary-11 active:shadow-sm border-primary-9"

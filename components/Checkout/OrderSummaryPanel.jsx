@@ -1,9 +1,9 @@
 import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
 import React, { useContext } from "react";
 
-export default function OrderSummary() {
-  const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
-    useContext(ECommerceContext);
+export default function OrderSummary({ cartItems }) {
+  // const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
+  //   useContext(ECommerceContext);
 
   return (
     <>

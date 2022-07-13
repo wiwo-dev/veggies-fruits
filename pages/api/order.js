@@ -2,8 +2,11 @@ import { getSession } from "next-auth/react";
 import prisma from "lib/prisma";
 
 export default async function handle(req, res) {
+  console.log("received something");
+  console.log(req);
   const session = await getSession({ req });
   if (req.method === "GET") {
+    console.log("received GET");
     const { category } = req.query;
     const orders = await prisma.order.findMany({
       include: { CartItems: { include: { product: true } } },
@@ -12,6 +15,7 @@ export default async function handle(req, res) {
   }
 
   if (req.method === "POST") {
+    console.log("received POST");
     const { status, CartItems, deliveryAddress } = req.body;
     console.log(JSON.stringify(CartItems, null, 2));
     const data = {
@@ -34,13 +38,6 @@ export default async function handle(req, res) {
 
     const order = await prisma.order.create({ data, include: { CartItems: { include: { product: true } } } });
     console.log(`Added order: ${order.id}`);
-    //second query to get more detailed return
-    // const newOrder = await prisma.order.findUnique({
-    //   where: { id: order.id },
-    //   //where: category ? { categories: { some: { name: { equals: category } } } } : {},
-    //   include: { CartItems: { include: { product: true } } },
-    // });
-    //returning just "order" and longer order "newOrder"
     res.json({ order });
   }
 

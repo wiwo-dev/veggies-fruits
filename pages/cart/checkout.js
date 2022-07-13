@@ -72,10 +72,9 @@ export default function Checkout() {
     console.log(response);
     if (status === 200) {
       console.log("Success!");
-      setOrder(newOrder);
-      emptyCart();
+      setOrder(newOrder.order);
       setIsProcessing(false);
-      router.push(`/cart/pay?order=${JSON.stringify(newOrder)}`);
+      router.push(`/cart/pay?orderId=${JSON.stringify(newOrder.order.id)}`);
     } else {
       console.log("ERROR");
       setIsProcessing(false);
@@ -99,7 +98,7 @@ export default function Checkout() {
           <DeliveryPanel deliveryAddress={deliveryAddress} setDeliveryAddress={setDeliveryAddress} />
         </section>
         <section className="bg-primary-2 p-3 my-2">
-          <OrderSummary />
+          <OrderSummary cartItems={cartItems} />
         </section>
         <section className="bg-primary-2 p-3 my-2 flex justify-around">
           <Link href="/cart">

@@ -38,10 +38,10 @@ export default function Cart({}) {
 
         <section className="mt-5 flex flex-col justify-between w-full gap-3 max-w-xl">
           {cartItems.map((cartItem, index) => (
-            <>
-              <CartItemRow key={index} cartItem={cartItem} />
-              {index < cartItem.quantity - 1 && <hr className="border-primary-7" />}
-            </>
+            <div key={index}>
+              <CartItemRow cartItem={cartItem} />
+              {index < cartItems.length - 1 && <hr className="border-primary-7" />}
+            </div>
           ))}
         </section>
         <section className="w-full gap-3 mt-10">
