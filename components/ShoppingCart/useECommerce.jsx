@@ -69,7 +69,7 @@ export default function useECommerce() {
 
   const removeAllProducts = ({ product }) => {
     const filtered = cartItems.filter((ci) => ci.productId !== product.id);
-    setCartItems(filtered);
+    setCartItems([...filtered]);
   };
 
   const emptyCart = () => {

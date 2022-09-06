@@ -45,22 +45,22 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <div className="w-[155px] bg-primary-1">
+    <div className="w-[155px] bg-primary-2 rounded-lg overflow-hidden shadow-md">
       <div className="w-full h-[120px] bg-gradient-to-tr from-primary-6 to-primary-8 relative">
         <Image
           src={`${mainPhotoUrl}?q=100&fit=facearea&w=155&h=120`}
           width="155px"
           height="120px"
-          className="object-cover w-[155px] h-[120px]"
+          className="object-cover w-[155px] h-[120px] hover:scale-105 transition-all"
           alt={name}
           placeholder="blur"
           blurDataURL={spinnerGif}
         />
         <motion.div
           animate={controls}
-          className="absolute w-fit h-[36px] bg-primary-9 flex flex-row-reverse items-center justify-between rounded-full px-0 shadom-md right-[-8px] top-[-8px] transition-transform">
+          className="absolute w-fit h-[36px] bg-primary-9 flex flex-row-reverse items-center justify-between rounded-tr-lg rounded-bl-lg px-0 shadom-md right-[0px] top-[0px] transition-transform">
           <button
-            className="w-[36px] h-[36px] rounded-full bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
+            className="w-[36px] h-[36px] rounded-lg bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
             onClick={handleClickPlus}>
             <svg
               layout="position"
@@ -79,7 +79,7 @@ export default function ProductCard({ product }) {
             <>
               <span className="text-base font-bold text-white font-abhaya-libre">{countAdded}</span>
               <button
-                className="w-[36px] h-[36px] rounded-full bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
+                className="w-[36px] h-[36px] rounded-lg bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
                 onClick={handleClickDelete}>
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path

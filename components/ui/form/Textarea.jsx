@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Textarea({ label, name, value, onChange, placeholder, required, error, ...rest }) {
+export default function Textarea({ label, name, value, onChange, placeholder, required, error, ...rest }) {
   return (
     <div className="mb-6">
       <label htmlFor={name} className="block mb-2 text-sm font-medium text-primary-11 font-body">

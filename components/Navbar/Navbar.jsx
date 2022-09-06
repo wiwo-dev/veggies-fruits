@@ -4,7 +4,7 @@ import { ECommerceContext } from "../ShoppingCart/ECommerceContext";
 import JsonPreviewer from "../JsonPreviewer";
 import Link from "next/link";
 import CartIcon from "../ShoppingCart/CartIcon";
-import { Modal } from "../ui";
+import { Modal, ModalBackdrop } from "../ui";
 import UserAccountModal from "./UserAccountModal";
 
 export default function Navbar() {
@@ -64,9 +64,11 @@ export default function Navbar() {
             )}
           </div>
           {userAccountModalOpen && (
-            <Modal container={refForDropdownModal.current}>
-              <UserAccountModal onClose={() => setUserAccountModalOpen(false)} />
-            </Modal>
+            <>
+              <Modal onClose={() => setUserAccountModalOpen(false)} container={refForDropdownModal.current}>
+                <UserAccountModal onClose={() => setUserAccountModalOpen(false)} />
+              </Modal>
+            </>
           )}
           <Link href="/cart/view">
             <a className="flex flex-row">

@@ -64,7 +64,7 @@ export default function ThankYouPage({}) {
 ThankYouPage.getLayout = function getLayout(page) {
   return (
     <MainLayout>
-      <TransitionLayout key="cart">{page}</TransitionLayout>
+      <TransitionLayout key="thankyou">{page}</TransitionLayout>
     </MainLayout>
   );
 };

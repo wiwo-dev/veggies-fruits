@@ -34,7 +34,7 @@ export default function ErrorPage({}) {
 ErrorPage.getLayout = function getLayout(page) {
   return (
     <MainLayout>
-      <TransitionLayout key="cart">{page}</TransitionLayout>
+      <TransitionLayout key="error">{page}</TransitionLayout>
     </MainLayout>
   );
 };

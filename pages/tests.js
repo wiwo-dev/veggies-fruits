@@ -7,18 +7,12 @@ import Category from "components/Categories/Category";
 import { Heading, MainContainer, Text } from "components/ui";
 import { BoxHeading, BoxSection, BoxText } from "components/ui/BoxSection";
 
-export default function Home() {
+export default function Tests() {
   const { data: session } = useSession();
   return (
     <>
       <Navbar />
-      <section
-        className="h-screen w-full bg-[url('/hero-header.jpg')] bg-cover flex justify-center items-center"
-        style={{
-          backgroundPosition: "center -100px",
-        }}>
-        <h1 className="font-display text-5xl text-white">Veggies & Fruits</h1>
-      </section>
+      <JsonPreviewer>{session}</JsonPreviewer>
       <MainContainer width="xl">
         <section className="bg-primary-1">
           <HorizontalRail gap={3}>

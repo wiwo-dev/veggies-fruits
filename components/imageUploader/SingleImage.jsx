@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 //import Image from "next/image";
 
-function singleImage({ src, width = 100, height = 100, main = true, onRemove, onSetDefault }) {
+function singleImage({ src, width = 100, height = 100, main = true, onRemove, showRemove = true, onSetDefault }) {
   return (
     <div className="relative">
       <div
@@ -34,16 +34,18 @@ function singleImage({ src, width = 100, height = 100, main = true, onRemove, on
             </svg>
           )}
         </button>
-        <button
-          className="w-[36px] h-[36px] rounded-full bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
-          onClick={onRemove}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5Z"
-              fill="white"
-            />
-          </svg>
-        </button>
+        {showRemove && (
+          <button
+            className="w-[36px] h-[36px] rounded-full bg-primary-9 flex items-center justify-center hover:bg-primary-10 active:bg-primary-11"
+            onClick={onRemove}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5Z"
+                fill="white"
+              />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );

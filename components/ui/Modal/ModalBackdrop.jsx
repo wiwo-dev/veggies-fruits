@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-const Portal = ({ children }) => {
+const ModalBackdrop = ({ children, onClick }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -10,7 +10,9 @@ const Portal = ({ children }) => {
     return () => setMounted(false);
   }, []);
 
-  return mounted ? createPortal(children, document.body) : null;
+  return mounted
+    ? createPortal(<div className="absolute left-0 top-0 w-screen h-screen" onClick={onClick}></div>, document.body)
+    : null;
 };
 
-export default Portal;
+export default ModalBackdrop;

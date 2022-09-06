@@ -89,7 +89,7 @@ export default function PayPage({}) {
 PayPage.getLayout = function getLayout(page) {
   return (
     <MainLayout>
-      <TransitionLayout key="cart">{page}</TransitionLayout>
+      <TransitionLayout key="pay">{page}</TransitionLayout>
     </MainLayout>
   );
 };

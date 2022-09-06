@@ -1,4 +1,5 @@
 import { Button } from "components/ui";
+import { BoxHeading, BoxText } from "components/ui/BoxSection";
 import { Input, Select } from "components/ui/form";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
@@ -42,8 +43,8 @@ export default function DeliveryPanel({ deliveryAddress, setDeliveryAddress }) {
         onClick={onClick}>
         {icon}
         <div className="flex flex-col items-center">
-          <div className="text-sage font-body text-base">{heading}</div>
-          <div className="text-sage font-body text-center text-sm">{text}</div>
+          <BoxHeading>{heading}</BoxHeading>
+          <BoxText>{text}</BoxText>
         </div>
       </div>
     );
@@ -57,11 +58,9 @@ export default function DeliveryPanel({ deliveryAddress, setDeliveryAddress }) {
         <div className="flex items-center gap-3">
           <div>{icon}</div>
           <div className="flex flex-col">
-            <div className="text-sage font-body text-base">{heading}</div>
+            <span className="text-sage font-body">{heading}</span>
             {lines.map((line, index) => (
-              <div key={index} className="text-sage font-body text-sm">
-                {line}
-              </div>
+              <BoxText key={index}>{line}</BoxText>
             ))}
           </div>
         </div>

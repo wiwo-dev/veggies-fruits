@@ -1,20 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import JsonPreviewer from "components/JsonPreviewer";
-import Navbar from "components/Navbar/Navbar";
+
 import ProductCard from "components/ProductCard/ProductCard";
-import AddToCardAnimation from "components/ui/AddToCardAnimation";
-import Button from "components/ui/Button";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRef, useState } from "react";
-import { MdShoppingCart } from "react-icons/md";
 import HorizontalRail from "components/ui/HorizontalRail/HorizontalRail";
 import LoadingSpinner from "components/ui/LoadingSpinner";
-
 import useSWR from "swr";
 import MainContainer from "components/ui/MainContainer";
 import MainLayout from "components/layout/MainLayout";
 import HorizontalRailItem from "components/ui/HorizontalRail/HorizontalRailItem";
 import Category from "components/Categories/Category";
+import { Input } from "components/ui/form";
+import { Text } from "components/ui";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -32,10 +29,12 @@ export default function Products({}) {
   );
   const { data: categories, error: errorCategories } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/category`, fetcher);
 
+  const [searchPhrase, setSearchPhrase] = useState("");
+
   return (
     <>
       {/* <JsonPreviewer>{products}</JsonPreviewer> */}
-      <MainContainer width="xl">
+      <MainContainer width="xl" className="bg-primary-1">
         <HorizontalRail gap={3} height={100}>
           {categories && (
             <>
@@ -55,10 +54,36 @@ export default function Products({}) {
                   </HorizontalRailItem>
                 </button>
               ))}
+              {categories.map((category, index) => (
+                <button key={index} onClick={() => setSelectedCategory(category.name)}>
+                  <HorizontalRailItem>
+                    <Category
+                      label={capitalizeFirstLetter(category.name)}
+                      icon={category.icon}
+                      active={selectedCategory === category.name && true}
+                    />
+                  </HorizontalRailItem>
+                </button>
+              ))}
+              {categories.map((category, index) => (
+                <button key={index} onClick={() => setSelectedCategory(category.name)}>
+                  <HorizontalRailItem>
+                    <Category
+                      label={capitalizeFirstLetter(category.name)}
+                      icon={category.icon}
+                      active={selectedCategory === category.name && true}
+                    />
+                  </HorizontalRailItem>
+                </button>
+              ))}
             </>
           )}
         </HorizontalRail>
-        <section className="flex flex-wrap w-full justify-center gap-3 my-5">
+        <section>
+          <Input onChange={(e) => setSearchPhrase(e.target.value)}></Input>
+          <Text>{searchPhrase && `Searching for ${searchPhrase} ${selectedCategory && `in ${selectedCategory}`}`}</Text>
+        </section>
+        <section className="flex flex-wrap w-full justify-start gap-3 my-5">
           {!error && !products ? (
             <div className="mx-auto mt-5">
               <LoadingSpinner />
@@ -71,6 +96,7 @@ export default function Products({}) {
             ))
           )}
         </section>
+
         <section>
           {/* <AddToCardAnimation targetRef={cartRef}>
           <Button

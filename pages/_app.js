@@ -16,11 +16,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps }, router }) {
 
   return (
     <SessionProvider session={session}>
-      <ECommerceProvider value={eCommerceProps}>
-        <AnimatePresence exitBeforeEnter initial={false} onExitComplete={() => window.scrollTo(0, 0)}>
-          {getLayout(<Component {...pageProps} key={url} />)}
-        </AnimatePresence>
-      </ECommerceProvider>
+      <ECommerceProvider value={eCommerceProps}>{getLayout(<Component {...pageProps} />)}</ECommerceProvider>
     </SessionProvider>
   );
 }

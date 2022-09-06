@@ -47,15 +47,24 @@ export default async function handle(req, res) {
   }
 
   if (req.method === "POST") {
-    const { name, description, published, stockCount, categories, mainPhotoUrl, available } = req.body;
+    console.log("BODY");
+    console.log(req.body);
+    console.log(JSON.stringify(req.body, null, 2));
+    //const parsedBody = JSON.parse(req.body)
+    const { name, description, published, price, stockCount, category, mainPhotoUrl, unit, available } = JSON.parse(
+      req.body
+    );
     const data = {
       name,
       description,
-      categories: categories
+      stockCount: Number(stockCount),
+      price: Number(price),
+      mainPhotoUrl,
+      unit,
+      available: Number(stockCount) > 0 ? true : false,
+      categories: category
         ? {
-            connect: categories.map((category) => ({
-              id: category.id,
-            })),
+            connect: [{ id: Number(category) }],
           }
         : {},
       //categories,

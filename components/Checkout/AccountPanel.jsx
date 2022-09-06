@@ -5,6 +5,7 @@ import NoAccountIcon from "./NoAccountIcon";
 import RightMoreArrowIcon from "./RightMoreArrowIcon";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect } from "react";
+import { BoxSection, BoxHeading, BoxText } from "components/ui/BoxSection";
 
 export default function AccountPanel() {
   const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
@@ -26,8 +27,8 @@ export default function AccountPanel() {
         onClick={onClick}>
         {icon}
         <div className="flex flex-col items-center">
-          <div className="text-sage font-body text-base">{heading}</div>
-          <div className="text-sage font-body text-center text-sm">{text}</div>
+          <BoxHeading>{heading}</BoxHeading>
+          <BoxText>{text}</BoxText>
         </div>
       </div>
     );
