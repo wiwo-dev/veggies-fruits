@@ -33,7 +33,7 @@ export default function Page({ product }) {
             <Heading>{product.name}</Heading>
             <p className="font-body text-sm text-sage">unit: {product.unit}</p>
             <p className="font-body text-lg text-primary-11">{product.price}$</p>
-            <div className="flex justify-start items-center gap-5">
+            <div className="flex justify-start items-start md:items-center gap-5 flex-col md:flex-row">
               <div className="">
                 <div className="mx-auto w-fit h-[36px] bg-primary-9 flex flex-row items-center justify-between rounded-full px-0 shadom-md right-[-8px] top-[-8px] transition-transform">
                   <RemoveProductButton
@@ -49,24 +49,28 @@ export default function Page({ product }) {
                   />
                 </div>
               </div>
-              <span className="font-abhaya-libre text-primary-11 text-lg">
-                {" "}
-                {(product.price * quantity).toFixed(2)}$
-              </span>
-              <RemoveAllButton
-                onClick={() => {
-                  removeAllProducts({ product });
-                }}
-              />
+              <div className="flex justify-start items-center gap-5">
+                <span className="font-abhaya-libre text-primary-11 text-lg">
+                  {" "}
+                  {(product.price * quantity).toFixed(2)}$
+                </span>
+                <RemoveAllButton
+                  onClick={() => {
+                    removeAllProducts({ product });
+                  }}
+                />
+              </div>
             </div>
           </div>
-          <Image
-            src={`${product.mainPhotoUrl}?q=100&w=300&h=200`}
-            width="300px"
-            height="200px"
-            className="object-cover w-[300px] h-[200px] rounded-md"
-            alt={product.name}
-          />
+          <div className="rounded-md overflow-hidden shadow-md h-[200px]">
+            <Image
+              src={`${product.mainPhotoUrl}?q=100&w=300&h=200`}
+              width="300px"
+              height="200px"
+              className="object-cover w-[300px] h-[200px] rounded-md"
+              alt={product.name}
+            />
+          </div>
         </div>
         <div className="h-[50px]"></div>
         <Text>{product.description}</Text>
