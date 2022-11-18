@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 //import Image from "next/image";
 
-function singleImage({ src, width = 100, height = 100, main = true, onRemove, showRemove = true, onSetDefault }) {
+function SingleImage({ src, width = 100, height = 100, main = true, onRemove, showRemove = true, onSetDefault }) {
   return (
     <div className="relative">
       <div
@@ -51,4 +51,4 @@ function singleImage({ src, width = 100, height = 100, main = true, onRemove, sh
   );
 }
 
-export default singleImage;
+export default SingleImage;

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, MainContainer } from "components/ui";
 import { Input, Select, Textarea } from "components/ui/form";
-import SingleImage from "components/imageUploader/singleImage";
+import SingleImage from "components/imageUploader/SingleImage";
 import MainLayout from "components/layout/MainLayout";
 import useSWR from "swr";
 import { useRef } from "react";
