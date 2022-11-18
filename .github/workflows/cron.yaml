@@ -8,4 +8,4 @@ jobs:
     steps:
       - name: Call our API route
         run: |
-          curl -X GET https://veggies-fruits-jcp2duxjb-wiwo.vercel.app/api/databasecheck
+          curl -X GET https://veggies-fruits.vercel.app/api/databasecheck
