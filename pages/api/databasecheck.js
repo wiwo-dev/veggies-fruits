@@ -11,8 +11,13 @@ prisma.$use(async (params, next) => {
 
 export default async function handler(req, res) {
   const data = { note: `Chekup done on: ${new Date().toLocaleString("pl-PL")}` };
-  const databaseCheck = await prisma.databaseCheck.create({ data });
-  console.log(`Added checkup: ${databaseCheck.note}`);
-  res.status(200).json(databaseCheck);
+  try {
+    const databaseCheck = await prisma.databaseCheck.create({ data });
+    console.log(`Added checkup: ${databaseCheck}`);
+    res.status(200).json(databaseCheck);
+  } catch (error) {
+    console.error(error);
+    res.json({ error });
+  }
   //res.status(200).json({ name: 'John Doe' })
 }
