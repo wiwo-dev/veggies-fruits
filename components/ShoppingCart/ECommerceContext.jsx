@@ -2,8 +2,6 @@ import React, { createContext, useEffect, useState } from "react";
 
 export const ECommerceContext = createContext();
 
-//export const ECommerceProvider = ECommerceContext.Provider;
-
 export function ECommerceProvider({ children }) {
   const [productsCount, setProductsCount] = useState(0);
   const [cartItems, setCartItems] = useState([]);
