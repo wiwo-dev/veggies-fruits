@@ -99,4 +99,5 @@ model DatabaseCheck {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   note      String?  @default("NEW CHECK")
+  source    String?
 }

@@ -10,7 +10,9 @@ prisma.$use(async (params, next) => {
 });
 
 export default async function handler(req, res) {
-  const data = { note: `Chekup done on: ${new Date().toLocaleString("pl-PL")}` };
+  const data = { note: `Chekup done on: ${new Date().toLocaleString("pl-PL")}`, source: req.body.source };
+  console.log("data", data);
+
   try {
     const databaseCheck = await prisma.databaseCheck.create({ data });
     console.log(`Added checkup: ${JSON.stringify(databaseCheck, null, 2)}`);
