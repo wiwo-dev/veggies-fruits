@@ -1,6 +1,9 @@
 {
   "name": "veggies-fruits",
   "version": "0.1.0",
+  "prisma": {
+    "seed": "prisma/seed.sh"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",

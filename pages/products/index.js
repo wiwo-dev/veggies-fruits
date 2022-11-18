@@ -54,28 +54,6 @@ export default function Products({}) {
                   </HorizontalRailItem>
                 </button>
               ))}
-              {categories.map((category, index) => (
-                <button key={index} onClick={() => setSelectedCategory(category.name)}>
-                  <HorizontalRailItem>
-                    <Category
-                      label={capitalizeFirstLetter(category.name)}
-                      icon={category.icon}
-                      active={selectedCategory === category.name && true}
-                    />
-                  </HorizontalRailItem>
-                </button>
-              ))}
-              {categories.map((category, index) => (
-                <button key={index} onClick={() => setSelectedCategory(category.name)}>
-                  <HorizontalRailItem>
-                    <Category
-                      label={capitalizeFirstLetter(category.name)}
-                      icon={category.icon}
-                      active={selectedCategory === category.name && true}
-                    />
-                  </HorizontalRailItem>
-                </button>
-              ))}
             </>
           )}
         </HorizontalRail>

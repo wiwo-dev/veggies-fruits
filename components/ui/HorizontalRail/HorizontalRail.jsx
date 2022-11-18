@@ -17,7 +17,7 @@ function HorizontalRail({ children, withButtonMargins = true, gap = 3, height })
   const xPosRef = useRef(buttonMargin);
 
   const controls = useDragControls();
-
+  
   useEffect(() => {
     setCarouselWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
     const childrenWidths = Array.from(carouselRef.current.children).map((children) => children.offsetWidth);
