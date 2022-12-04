@@ -1,18 +1,20 @@
-import Sidebar from "components/admin/Sidebar";
+import AdminMenu from "components/admin/AdminMenu";
 import JsonPreviewer from "components/JsonPreviewer";
+import AdminLayout from "components/layout/MainLayout copy";
 import Navbar from "components/Navbar/Navbar";
 import { useSession, signIn, signOut } from "next-auth/react";
 
-export default function Admin() {
+export default function Page() {
   const { data: session } = useSession();
   return (
     <>
-      <Navbar />
-      {/* <Sidebar /> */}
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus minima non inventore quaerat ipsum fuga,
-        delectus odit assumenda labore pariatur dolorum nam ad itaque tempore vel. Eos repudiandae corporis in!
-      </p>
+      <main className="max-w-screen-xl mx-auto px-[32px]">
+        <p>That's your admin Dashboard.</p>
+      </main>
     </>
   );
 }
+
+Page.getLayout = function getLayout(page) {
+  return <AdminLayout>{page}</AdminLayout>;
+};

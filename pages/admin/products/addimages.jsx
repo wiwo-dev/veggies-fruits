@@ -41,6 +41,7 @@ export default function AddImages() {
   const handleImageSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    formData.append("folder", `other-images`);
     const config = {
       headers: { "content-type": "multipart/form-data" },
       onUploadProgress: (event) => {

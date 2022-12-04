@@ -2,7 +2,7 @@ import JsonPreviewer from "components/JsonPreviewer";
 import MainLayout from "components/layout/MainLayout";
 import Navbar from "components/Navbar/Navbar";
 import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
-import { Heading, MainContainer, Text } from "components/ui";
+import { Heading, ImgixImage, MainContainer, Text } from "components/ui";
 
 export default function Page({ product }) {
   const [quantity, setQuantity] = useState(0);
@@ -63,8 +63,8 @@ export default function Page({ product }) {
             </div>
           </div>
           <div className="rounded-md overflow-hidden shadow-md h-[200px]">
-            <Image
-              src={`${product.mainPhotoUrl}?q=100&w=300&h=200`}
+            <ImgixImage
+              src={`${product.mainPhotoUrl}`}
               width="300px"
               height="200px"
               className="object-cover w-[300px] h-[200px] rounded-md"

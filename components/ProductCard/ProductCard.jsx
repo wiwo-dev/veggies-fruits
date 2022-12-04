@@ -4,9 +4,11 @@ import { useEffect, useState, useContext } from "react";
 import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
 import Image from "next/image";
 import spinnerGif from "public/Spinner-1s-200px.gif";
+import Link from "next/link";
+import { ImgixImage } from "components/ui";
 
-export default function ProductCard({ product }) {
-  const { name, price, unit, mainPhotoUrl } = product;
+export default function ProductCard({ product, className }) {
+  const { name, price, unit, mainPhotoUrl, slug, id } = product;
   const [countAdded, setCountAdded] = useState(0);
   const controls = useAnimation();
   //const { addItem, removeItem, removeAllItems, cartItems, cartItemsGrouped } = useContext(ECommerceContext);
@@ -45,17 +47,22 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <div className="w-[155px] bg-primary-2 rounded-lg overflow-hidden shadow-md">
+    <div className={`w-[155px] bg-primary-2 rounded-lg overflow-hidden shadow-md ${className}`}>
       <div className="w-full h-[120px] bg-gradient-to-tr from-primary-6 to-primary-8 relative">
-        <Image
-          src={`${mainPhotoUrl}?q=100&fit=facearea&w=155&h=120`}
-          width="155px"
-          height="120px"
-          className="object-cover w-[155px] h-[120px] hover:scale-105 transition-all"
-          alt={name}
-          placeholder="blur"
-          blurDataURL={spinnerGif}
-        />
+        <Link href={`/products/${slug}`}>
+          <div>
+            <ImgixImage
+              //src={`${mainPhotoUrl}?q=100&fit=facearea&w=155&h=120`}
+              src={`${mainPhotoUrl}`}
+              width="155px"
+              height="120px"
+              className="object-cover w-[155px] h-[120px] hover:scale-105 transition-all cursor-pointer"
+              alt={name}
+              placeholder="blur"
+              blurDataURL={spinnerGif}
+            />
+          </div>
+        </Link>
         <motion.div
           animate={controls}
           className="absolute w-fit h-[36px] bg-primary-9 flex flex-row-reverse items-center justify-between rounded-tr-lg rounded-bl-lg px-0 shadom-md right-[0px] top-[0px] transition-transform">
@@ -93,13 +100,15 @@ export default function ProductCard({ product }) {
         </motion.div>
       </div>
 
-      <div className="flex flex-col justify-between p-3 pt-1">
-        <div className="flex flex-col mb-2 gap-0">
-          <p className="font-body text-primary-12 text-lg">{name}</p>
-          <p className="font-body text-sage text-sm lowercase">{unit}</p>
+      <Link href={`/products/${slug}`}>
+        <div className="flex flex-col justify-between p-3 pt-1 cursor-pointer">
+          <div className="flex flex-col mb-2 gap-0">
+            <p className="font-body text-primary-12 text-lg">{name}</p>
+            <p className="font-body text-sage text-sm lowercase">{unit}</p>
+          </div>
+          <p className="font-body self-start text-primary-11">{price.toFixed(2)}$</p>
         </div>
-        <p className="font-body self-start text-primary-11">{price.toFixed(2)}$</p>
-      </div>
+      </Link>
     </div>
   );
 }

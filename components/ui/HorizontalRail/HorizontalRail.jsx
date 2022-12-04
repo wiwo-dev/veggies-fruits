@@ -17,14 +17,14 @@ function HorizontalRail({ children, withButtonMargins = true, gap = 3, height })
   const xPosRef = useRef(buttonMargin);
 
   const controls = useDragControls();
-  
+
   useEffect(() => {
     setCarouselWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
     const childrenWidths = Array.from(carouselRef.current.children).map((children) => children.offsetWidth);
     setChildrenWidths(childrenWidths);
     const totalChildrenWidth = childrenWidths.reduce((acc, cur) => acc + cur, 0);
     const gapInPixels = (carouselRef.current.scrollWidth - totalChildrenWidth) / (childrenWidths.length - 1);
-    console.log("gapInPixels: ", gapInPixels);
+    //console.log("gapInPixels: ", gapInPixels);
     setOneClickDistance(childrenWidths[0] + gapInPixels);
   }, [windowWidth, carouselWidth]);
 
@@ -32,13 +32,13 @@ function HorizontalRail({ children, withButtonMargins = true, gap = 3, height })
   const checkConstraints = (xposition) => {
     const carouselWidth2 = carouselRef.current.scrollWidth - carouselRef.current.offsetWidth;
     if (xposition > buttonMargin) {
-      console.log("Position is too HIGH");
+      //console.log("Position is too HIGH");
       setHorizontalScroll(buttonMargin);
     } else if (xposition < -carouselWidth2 - buttonMargin) {
-      console.log("Position is too LOW");
+      //console.log("Position is too LOW");
       setHorizontalScroll(-carouselWidth2 - buttonMargin);
     } else {
-      console.log("POSITION OK");
+      //console.log("POSITION OK");
     }
   };
 
@@ -58,13 +58,13 @@ function HorizontalRail({ children, withButtonMargins = true, gap = 3, height })
     // console.log("POSSIBLE MODULO 2: ", buttonMargin - oneClickDistance);
     const carouselWidth2 = carouselRef.current.scrollWidth - carouselRef.current.offsetWidth;
     if (newScrollPositon > buttonMargin) {
-      console.log("Setting 0");
+      //console.log("Setting 0");
       setHorizontalScroll(buttonMargin);
     } else if (newScrollPositon < -carouselWidth2 - buttonMargin) {
-      console.log("Setting full");
+      //console.log("Setting full");
       setHorizontalScroll(-carouselWidth2 - buttonMargin);
     } else {
-      console.log("Moving by ", direction * oneClickDistance, "px ||| new scroll: ", newScrollPositon);
+      //console.log("Moving by ", direction * oneClickDistance, "px ||| new scroll: ", newScrollPositon);
       setHorizontalScroll(newScrollPositon);
       //controls.updatePoint("x", { offset: { x: newScrollPositon } });
       //controls.start()
@@ -99,7 +99,7 @@ function HorizontalRail({ children, withButtonMargins = true, gap = 3, height })
           dragElastic={0.2}
           dragConstraints={{ left: -carouselWidth - buttonMargin, right: buttonMargin }}
           onUpdate={(latest) => {
-            console.log("UPDATING REF, latest.x = ", latest.x);
+            //console.log("UPDATING REF, latest.x = ", latest.x);
             //checkConstraints(latest.x);
             xPosRef.current = latest.x;
           }}>

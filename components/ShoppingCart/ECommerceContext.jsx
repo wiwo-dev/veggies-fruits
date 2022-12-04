@@ -88,5 +88,6 @@ export function ECommerceProvider({ children }) {
     order,
     setOrder,
   };
+
   return <ECommerceContext.Provider value={value}>{children}</ECommerceContext.Provider>;
 }

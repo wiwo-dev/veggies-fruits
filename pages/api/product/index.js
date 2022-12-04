@@ -1,11 +1,11 @@
 import prisma from "lib/prisma";
 import slugify from "slugify";
+import { getSession } from "next-auth/react";
 
 prisma.$use(async (params, next) => {
-  if (
-    (params.action === "create" || params.action === "update") &&
-    ["Category", "Product", "YourModel"].includes(params.model)
-  ) {
+  //use this if want to check the slug on update
+  //(params.action === "create" || params.action === "update")
+  if (params.action === "create" && ["Category", "Product"].includes(params.model)) {
     let {
       args: { data },
     } = params;
@@ -41,9 +41,19 @@ export default async function handle(req, res) {
       //where: { published: true },
       where: category ? { categories: { some: { name: { equals: category } } } } : {},
       include: { categories: { select: { name: true, id: true } } },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
-
     res.json(products);
+    return;
+  }
+
+  const session = await getSession({ req });
+  if (session?.dbUser.role !== "ADMIN") {
+    console.log("NO PERMISSION");
+    res.status(401).json({ orders: [], message: "NO PERMISSION" });
+    return;
   }
 
   if (req.method === "POST") {
@@ -74,23 +84,34 @@ export default async function handle(req, res) {
     res.json(product);
   }
 
-  if (req.method === "PUT") {
-    const { id, name, description, published, stockCount, categories, mainPhotoUrl, available } = req.body;
-    const data = {
-      name,
-      description,
-      // categories: {
-      //   connect: categories.map((category) => ({
-      //     id: category.id,
-      //   })),
-      // },
-      //categories,
-    };
-    const product = await prisma.product.update({
-      where: { id: Number(id) },
-      data,
-    });
-    console.log(`Updated product: ${product.name}`);
-    res.json(product);
-  }
+  // if (req.method === "PUT") {
+  //   const { id, name, description, price, stockCount, category, mainPhotoUrl, unit } = JSON.parse(req.body);
+
+  //   const data = {
+  //     name,
+  //     description,
+  //     stockCount: Number(stockCount),
+  //     price: Number(price),
+  //     mainPhotoUrl,
+  //     unit,
+  //     available: Number(stockCount) > 0 ? true : false,
+  //     categories: category
+  //       ? {
+  //           connect: [{ id: Number(category) }],
+  //         }
+  //       : {},
+  //   };
+
+  //   try {
+  //     const product = await prisma.product.update({
+  //       where: { id: Number(id) },
+  //       data,
+  //     });
+  //     console.log(`Updated product: ${product.name}`);
+  //     res.status(200).json(product);
+  //   } catch (error) {
+  //     console.log(error);
+  //     res.status(500);
+  //   }
+  // }
 }

@@ -141,9 +141,7 @@ export default NextAuth({
           email: token.email,
         },
       });
-
       if (prismaUser) session.dbUser = prismaUser;
-
       return session;
     },
   },

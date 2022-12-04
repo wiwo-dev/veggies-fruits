@@ -5,13 +5,28 @@ export default async function handle(req, res) {
   console.log("received something");
   console.log(req);
   const session = await getSession({ req });
+
   if (req.method === "GET") {
+    //console.log(session);
     console.log("received GET");
-    const { category } = req.query;
-    const orders = await prisma.order.findMany({
-      include: { CartItems: { include: { product: true } } },
-    });
-    res.json(orders);
+    if (session?.dbUser.role === "ADMIN") {
+      const { category } = req.query;
+      const orders = await prisma.order.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+        include: {
+          CartItems: { include: { product: true } },
+          user: true,
+        },
+      });
+      res.status(200).json({ orders: orders });
+    } else {
+      console.log("NO PERMISSION");
+      res.status(401).json({ orders: [], message: "NO PERMISSION" });
+    }
   }
 
   if (req.method === "POST") {

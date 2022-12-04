@@ -12,6 +12,7 @@ export default function MainLayout({ children }) {
     <>
       <Navbar />
       {children}
+      <div className="min-h-[200px]"></div>
       <SomethingInCartModal />
     </>
   );

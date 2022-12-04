@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 const primary = {
   1: "#fbfefb",
   2: "#f3fcf3",
@@ -35,10 +37,11 @@ module.exports = {
       display: ["Oxygen", "Oswald"],
       body: ["Imprima", '"Open Sans"'],
     },
+    screens: {
+      xs: "390px",
+      ...defaultTheme.screens,
+    },
     extend: {
-      screens: {
-        xs: "390px",
-      },
       colors: {
         primary,
         primaryDark,

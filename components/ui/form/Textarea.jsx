@@ -13,6 +13,7 @@ export default function Textarea({ label, name, value, onChange, placeholder, re
         placeholder={placeholder}
         required={required}
         error={error}
+        {...rest}
         //onChange={onChange}
       ></textarea>
     </div>
