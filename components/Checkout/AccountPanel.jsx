@@ -71,7 +71,7 @@ export default function AccountPanel() {
   if (!session) {
     return (
       <>
-        <div className="text-primary-11 font-body">Account {status}</div>
+        <div className="text-primary-11 font-body">You are not logged in</div>
         <div className="text-sage font-body text-sm">Login to your account or order without creating an account.</div>
 
         <section className="">

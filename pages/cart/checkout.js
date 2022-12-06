@@ -75,16 +75,21 @@ export default function Checkout() {
     };
 
     setIsProcessing(true);
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/order`, requestBody, config);
-    const { status, data: newOrder } = response;
-    console.log(response);
-    if (status === 200) {
-      console.log("Success!");
-      setOrder(newOrder.order);
-      setIsProcessing(false);
-      router.push(`/cart/pay?orderId=${JSON.stringify(newOrder.order.id)}`);
-    } else {
-      console.log("ERROR");
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/order`, requestBody, config);
+      const { status, data: newOrder } = response;
+      console.log(response);
+      if (status === 200) {
+        console.log("Success!");
+        setOrder(newOrder.order);
+        setIsProcessing(false);
+        router.push(`/cart/pay?orderId=${JSON.stringify(newOrder.order.id)}`);
+      } else {
+        console.log("ERROR ON THE SERVER");
+        setIsProcessing(false);
+      }
+    } catch (error) {
+      console.log("ERROR WHILE POSTING");
       setIsProcessing(false);
     }
   };

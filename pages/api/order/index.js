@@ -51,9 +51,14 @@ export default async function handle(req, res) {
     };
     if (status) data.status = status;
 
-    const order = await prisma.order.create({ data, include: { CartItems: { include: { product: true } } } });
-    console.log(`Added order: ${order.id}`);
-    res.json({ order });
+    try {
+      const order = await prisma.order.create({ data, include: { CartItems: { include: { product: true } } } });
+      console.log(`Added order: ${order.id}`);
+      res.status(200).json({ order });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Server error while conecting to db" });
+    }
   }
 
   if (req.method === "PUT") {
