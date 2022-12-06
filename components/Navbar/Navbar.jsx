@@ -6,6 +6,7 @@ import Link from "next/link";
 import CartIcon from "../ShoppingCart/CartIcon";
 import { Modal, ModalBackdrop } from "../ui";
 import UserAccountModal from "./UserAccountModal";
+import ProjectIcon from "components/Icons/ProjectIcon";
 
 export default function Navbar() {
   const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
@@ -17,11 +18,10 @@ export default function Navbar() {
     <>
       <div className="flex flex-row items-center justify-between w-full h-10 px-4 text-white bg-primary-9">
         <Link href="/">
-          <a>Veggies & Fruits</a>
-        </Link>
-
-        <Link href="/products">
-          <a>Products</a>
+          <span className="flex gap-2 items-center cursor-pointer">
+            <ProjectIcon fill="white" />
+            Veggies & Fruits
+          </span>
         </Link>
 
         <div className="flex gap-5 items-center">

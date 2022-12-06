@@ -3,12 +3,12 @@ import prisma from "lib/prisma";
 
 export default async function handle(req, res) {
   console.log("received something");
-  console.log(req);
+  //console.log(req);
   const session = await getSession({ req });
 
   if (req.method === "GET") {
     //console.log(session);
-    console.log("received GET");
+    console.log("received GET on api/order");
     if (session?.dbUser.role === "ADMIN") {
       const { category } = req.query;
       const orders = await prisma.order.findMany({

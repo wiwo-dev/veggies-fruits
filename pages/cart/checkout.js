@@ -105,13 +105,8 @@ export default function Checkout() {
         key="view"
         location="view">
         <MainContainer width="xl">
-          <JsonPreviewer>{session}</JsonPreviewer>
           <Heading>Checkout</Heading>
-          <Text>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex sit explicabo est similique labore assumenda
-            rerum deleniti eius qui aspernatur officiis quae amet debitis nesciunt, corporis tempore molestias
-            cupiditate! Necessitatibus?
-          </Text>
+          <Text>Choose if you would like your order to be delivered or you prefere self pickup</Text>
           <BoxSection>
             <AccountPanel />
           </BoxSection>
@@ -135,7 +130,7 @@ export default function Checkout() {
                 </a>
               </Link>
               <Button onClick={sendOrder} loading={isProcessing}>
-                Make order
+                Confirm order
               </Button>
             </section>
           </BoxSection>
