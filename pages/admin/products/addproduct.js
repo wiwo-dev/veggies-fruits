@@ -6,7 +6,7 @@ import SingleImage from "components/imageUploader/SingleImage";
 import MainLayout from "components/layout/MainLayout";
 import useSWR from "swr";
 import { useRef } from "react";
-import AdminLayout from "components/layout/MainLayout copy";
+import AdminLayout from "components/layout/AdminLayout";
 import { useRouter } from "next/router";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -124,3 +124,18 @@ export default function Page() {
 Page.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  if (!session || session?.dbUser.role !== "ADMIN") {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+}

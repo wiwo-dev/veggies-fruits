@@ -9,11 +9,11 @@ export default function MainLayout({ children }) {
   }, []);
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       <Navbar />
       {children}
       <div className="min-h-[200px]"></div>
       <SomethingInCartModal />
-    </>
+    </div>
   );
 }

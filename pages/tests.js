@@ -6,6 +6,8 @@ import HorizontalRailItem from "components/ui/HorizontalRail/HorizontalRailItem"
 import Category from "components/Categories/Category";
 import { Heading, MainContainer, Text } from "components/ui";
 import { BoxHeading, BoxSection, BoxText } from "components/ui/BoxSection";
+import HorizontalMenuButton from "components/admin/HorizontalMenuLink";
+import HorizontalMenuLink from "components/admin/HorizontalMenuLink";
 
 export default function Tests() {
   const { data: session } = useSession();
@@ -54,6 +56,21 @@ export default function Tests() {
           <BoxHeading>Section test</BoxHeading>
           <BoxText>box section text</BoxText>
         </BoxSection>
+        <HorizontalRail>
+          <HorizontalRailItem>
+            <div
+              className={`w-[100px] flex flex-col justify-between items-center px-3 py-2 bg-primary-3 hover:bg-primary-4 active:bg-primary-5  rounded-lg ${
+                true ? "border-2 border-primary-7" : "border-2 border-transparent"
+              }`}>
+              <div className="font-body text-primary-12 text-lg flex justify-center">Button</div>
+            </div>
+          </HorizontalRailItem>
+          <HorizontalRailItem>
+            <HorizontalMenuLink label="Button" href="/" active />
+          </HorizontalRailItem>
+          <HorizontalRailItem>1</HorizontalRailItem>
+          <HorizontalRailItem>1</HorizontalRailItem>
+        </HorizontalRail>
       </MainContainer>
     </>
   );

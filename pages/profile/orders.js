@@ -1,7 +1,7 @@
 import axios from "axios";
 import JsonPreviewer from "components/JsonPreviewer";
 import MainLayout from "components/layout/MainLayout";
-import ProfileMenu from "components/profile/ProfileMenu";
+import OrderRow from "components/Order/OrderRow";
 import { Button, Heading, LoadingSpinner, MainContainer, Text } from "components/ui";
 import { Input } from "components/ui/form";
 import { useSession } from "next-auth/react";
@@ -11,33 +11,35 @@ import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-function Profile() {
+export default function Page() {
   const { data: session, status } = useSession();
-  const [userData, setUserData] = useState();
-
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
+  const { data, error } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/order/myorders`, fetcher);
+
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/");
+    if (data) {
+      setIsLoading(false);
     }
-  }, [status]);
+  }, [data]);
 
   return (
     <>
       <MainContainer width="xl">
-        <ProfileMenu />
-        <div className="flex flex-col items-center">
-          <Heading>{session?.token.name}</Heading>
-          <Text>{session?.token.email}</Text>
-        </div>
+        <Heading>Your orders</Heading>
+        {isLoading ? (
+          <div className="flex justify-center">
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <>{!error && data?.orders.map((order, ind) => <OrderRow key={ind} order={order} />)}</>
+        )}
       </MainContainer>
     </>
   );
 }
 
-export default Profile;
-
-Profile.getLayout = function getLayout(page) {
+Page.getLayout = function getLayout(page) {
   return <MainLayout>{page}</MainLayout>;
 };

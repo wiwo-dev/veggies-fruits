@@ -1,6 +1,6 @@
 import { CloseIcon } from "components/Icons/CloseIcon";
 import { Text } from "components/ui";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
@@ -17,27 +17,30 @@ export default function SomethingInCartModal() {
 
   return (
     <>
-      {productsCount > 0 && isModalOpen && (
-        <motion.div
-          initial={{ height: 0 }}
-          animate={{ height: 80 }}
-          className="fixed bottom-0 left-0 w-full bg-primary-9 flex justify-center items-center">
-          <div className="font-body text-white">
-            You got {productsCount} products in{" "}
-            <Link href="/cart/view" className="">
-              <a className="underline cursor-pointer">your cart!</a>
-            </Link>
-          </div>
+      <AnimatePresence>
+        {productsCount > 0 && isModalOpen && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: 80 }}
+            exit={{ height: 0 }}
+            className="fixed bottom-0 left-0 w-full bg-primary-9 flex justify-center items-center">
+            <div className="font-body text-white">
+              You got {productsCount} products in{" "}
+              <Link href="/cart/view" className="">
+                <a className="underline cursor-pointer">your cart!</a>
+              </Link>
+            </div>
 
-          <div
-            className="absolute right-3 top-5 w-[30px] h-[30px] cursor-pointer"
-            onClick={() => {
-              setIsModalOpen(false);
-            }}>
-            <CloseIcon fill="#ffffff" />
-          </div>
-        </motion.div>
-      )}
+            <div
+              className="absolute right-3 top-5 w-[30px] h-[30px] cursor-pointer"
+              onClick={() => {
+                setIsModalOpen(false);
+              }}>
+              <CloseIcon fill="#ffffff" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

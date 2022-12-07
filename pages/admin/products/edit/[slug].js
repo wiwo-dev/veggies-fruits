@@ -6,18 +6,16 @@ import { Button, Heading, ImgixImage, LoadingSpinner, MainContainer, Text } from
 import useSWR from "swr";
 import MainLayout from "components/layout/MainLayout";
 import SingleImage from "components/imageUploader/SingleImage";
-import AdminLayout from "components/layout/MainLayout copy";
+import AdminLayout from "components/layout/AdminLayout";
 import axios from "axios";
+
+import { getSession } from "next-auth/react";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Page() {
   const router = useRouter();
-  const [slug, setSlug] = useState();
-  useEffect(() => {
-    console.log(router.query);
-    if (router.query.slug) setSlug(router.query.slug[0]);
-  }, [router]);
+  const { slug } = router.query;
 
   const { data: categories, error: errorCategories } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/category`, fetcher);
   const { data: product, error: errorProducts } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/product/${slug}`, fetcher);
@@ -173,3 +171,18 @@ export default function Page() {
 Page.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  if (!session || session?.dbUser.role !== "ADMIN") {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+}

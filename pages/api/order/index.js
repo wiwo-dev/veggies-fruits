@@ -1,6 +1,15 @@
 import { getSession } from "next-auth/react";
 import prisma from "lib/prisma";
 
+// to login the action
+prisma.$use(async (params, next) => {
+  const before = Date.now();
+  const result = await next(params);
+  const after = Date.now();
+  console.log(`Query ${params.model}.${params.action} took ${after - before}ms`);
+  return result;
+});
+
 export default async function handle(req, res) {
   console.log("received something");
   //console.log(req);

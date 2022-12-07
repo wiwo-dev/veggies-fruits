@@ -1,3 +1,5 @@
+//this is used to prevent supabase from stopping - it's triggered by github action daily :)
+
 import prisma from "lib/prisma";
 
 export default async function handler(req, res) {
@@ -15,9 +17,3 @@ export default async function handler(req, res) {
     res.json({ error });
   }
 }
-
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
