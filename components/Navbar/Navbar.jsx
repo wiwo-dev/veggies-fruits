@@ -16,7 +16,7 @@ export default function Navbar() {
   const [userAccountModalOpen, setUserAccountModalOpen] = useState(false);
   return (
     <>
-      <div className=" bg-primary-9">
+      <div className="bg-primary-9 z-20">
         <div className="max-w-screen-md mx-auto flex flex-row items-center justify-between w-full h-10 px-4 text-white">
           <Link href="/">
             <span className="flex gap-2 items-center cursor-pointer">

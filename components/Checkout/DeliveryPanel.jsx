@@ -8,7 +8,7 @@ import DeliveryIcon from "./DeliveryIcon";
 import PickUpIcon from "./PickUpIcon";
 import RightMoreArrowIcon from "./RightMoreArrowIcon";
 
-export default function DeliveryPanel({ deliveryAddress, setDeliveryAddress }) {
+export default function DeliveryPanel({ deliveryAddress, setDeliveryAddress, isDeliveryAddressFilled }) {
   const [deliveryMethod, setDeliveryMethod] = useState("delivery");
   const [chooseDeliveryOptionOpen, setChooseDeliveryOptionOpen] = useState(false);
 
@@ -53,7 +53,9 @@ export default function DeliveryPanel({ deliveryAddress, setDeliveryAddress }) {
   function DeliveryShortenedPanel({ icon, heading, lines }) {
     return (
       <div
-        className="flex justify-between items-center p-3 rounded-md hover:bg-primary-4 hover:cursor-pointer"
+        className={`flex justify-between items-center p-3 rounded-md hover:bg-primary-4 hover:cursor-pointer ${
+          !isDeliveryAddressFilled && "border-2 border-red-300"
+        }`}
         onClick={() => setChooseDeliveryOptionOpen(!chooseDeliveryOptionOpen)}>
         <div className="flex items-center gap-3">
           <div>{icon}</div>
@@ -80,11 +82,13 @@ export default function DeliveryPanel({ deliveryAddress, setDeliveryAddress }) {
           icon={<DeliveryIcon />}
           heading={"To Your address"}
           lines={
-            deliveryAddress
+            !isDeliveryAddressFilled
+              ? ["You have to fill the address", "Click here to open the form!"]
+              : deliveryAddress
               ? [
-                  `${deliveryAddress.name} ${deliveryAddress.address || ""} ${deliveryAddress.address2 || ""}`,
-                  `${deliveryAddress.postcode} ${deliveryAddress.city}, ${deliveryAddress.country}`,
-                  `${deliveryAddress.email} ${deliveryAddress.phoneNumber}`,
+                  `${deliveryAddress.name || ""} ${deliveryAddress.address || ""} ${deliveryAddress.address2 || ""}`,
+                  `${deliveryAddress.postcode || ""} ${deliveryAddress.city || ""} ${deliveryAddress.country || ""}`,
+                  `${deliveryAddress.email || ""} ${deliveryAddress.phoneNumber || ""}`,
                 ]
               : ["No address"]
           }

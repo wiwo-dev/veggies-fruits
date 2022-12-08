@@ -54,6 +54,21 @@ export default function Checkout() {
     });
   }, [session]);
 
+  const [isDeliveryAddressFilled, setIsDeliveryAddressFilled] = useState(false);
+  useEffect(() => {
+    const check = (string) => string?.length > 0 && string !== "undefined";
+    const incorrect = [
+      deliveryAddress.name,
+      deliveryAddress.email,
+      deliveryAddress.address,
+      deliveryAddress.city,
+      deliveryAddress.postcode,
+      deliveryAddress.country,
+    ].filter((el) => !check(el));
+    if (incorrect.length < 1) setIsDeliveryAddressFilled(true);
+    else setIsDeliveryAddressFilled(false);
+  }, [deliveryAddress]);
+
   const sendOrder = async () => {
     //object to send as request body
     const CartItems = cartItems.map((cartItem) => ({
@@ -110,7 +125,11 @@ export default function Checkout() {
         </BoxSection>
 
         <BoxSection>
-          <DeliveryPanel deliveryAddress={deliveryAddress} setDeliveryAddress={setDeliveryAddress} />
+          <DeliveryPanel
+            deliveryAddress={deliveryAddress}
+            setDeliveryAddress={setDeliveryAddress}
+            isDeliveryAddressFilled={isDeliveryAddressFilled}
+          />
         </BoxSection>
 
         <BoxSection>
@@ -127,7 +146,7 @@ export default function Checkout() {
                 <Button>Back</Button>
               </a>
             </Link>
-            <Button onClick={sendOrder} loading={isProcessing}>
+            <Button onClick={sendOrder} loading={isProcessing} disabled={!isDeliveryAddressFilled}>
               Confirm order
             </Button>
           </section>

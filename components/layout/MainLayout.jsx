@@ -10,12 +10,14 @@ export default function MainLayout({ children }) {
   }, []);
 
   return (
-    <div className="overflow-x-hidden bg-primary-1">
-      <Navbar />
-      {children}
-      <div className="min-h-[80px]"></div>
-      <SomethingInCartModal />
-      <Footer />
-    </div>
+    <>
+      <div className="overflow-x-hidden  relative">
+        <Navbar />
+        {children}
+        <div className="min-h-[80px]"></div>
+        <SomethingInCartModal />
+        <Footer />
+      </div>
+    </>
   );
 }
