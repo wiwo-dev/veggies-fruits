@@ -2,6 +2,7 @@ import Navbar from "components/Navbar/Navbar";
 import SomethingInCartModal from "components/ShoppingCart/SomethingInCartModal";
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect } from "react";
+import Footer from "./Footer";
 
 export default function MainLayout({ children }) {
   useEffect(() => {
@@ -9,11 +10,12 @@ export default function MainLayout({ children }) {
   }, []);
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden bg-primary-1">
       <Navbar />
       {children}
-      <div className="min-h-[200px]"></div>
+      <div className="min-h-[80px]"></div>
       <SomethingInCartModal />
+      <Footer />
     </div>
   );
 }

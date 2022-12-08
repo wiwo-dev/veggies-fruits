@@ -1,6 +1,6 @@
 import React from "react";
 
-function ProjectIcon({ fill = "#7AB87B", height = 24 }) {
+export default function ProjectIcon({ fill = "#7AB87B", height = 24 }) {
   return (
     <svg height={height} viewBox="0 0 255 69" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_468_333)">
@@ -36,5 +36,3 @@ function ProjectIcon({ fill = "#7AB87B", height = 24 }) {
     </svg>
   );
 }
-
-export default ProjectIcon;

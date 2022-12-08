@@ -64,8 +64,6 @@ export default function PayPage({}) {
 
   return (
     <>
-      {/* <JsonPreviewer>{cartItems}</JsonPreviewer> */}
-
       <MainContainer width="xl">
         <Heading>Thank you!</Heading>
         <Text>Your order is confirmed. Please pay using the button below.</Text>
@@ -95,7 +93,6 @@ export default function PayPage({}) {
           </Button>
         </section>
       </MainContainer>
-      {/* <Confetti /> */}
     </>
   );
 }

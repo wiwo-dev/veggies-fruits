@@ -17,13 +17,13 @@ function HorizontalRail({ children, withButtonMargins = true, gap = 3, height = 
 
     //setCarouselWidth(carouselRef.current.scrollWidth);
     setCarouselWidth(childrensWidth);
-    console.log(childrensWidth);
+
     setLeftConstraints(childrensWidth - windowWidth + 20);
     //console.log(carouselRef.current.scrollWidth);
   }, [windowWidth]);
 
   return (
-    <div className={`bg-primary-2 relative py-2`}>
+    <div className={` relative py-2`}>
       <div className="w-full overflow-hidden">
         <motion.div
           className={`flex gap-${gap} ${windowWidth > carouselWidth ? "justify-center" : "justify-start"}`}

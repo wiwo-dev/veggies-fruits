@@ -111,7 +111,7 @@ export default function Page() {
           <>
             <div className="">
               {!isImageRemoved ? (
-                <div className="w-[250px] h-[200px]">
+                <div className="w-[250px] min-h-[200px]">
                   <SingleImage
                     src={addedImage ? addedImage : product.mainPhotoUrl}
                     width={250}

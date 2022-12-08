@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useSWRConfig } from "swr";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
+import PickUpIcon from "components/Checkout/PickUpIcon";
+import ShoppingBasketIcon from "components/Icons/ShoppingBasketIcon";
 
 export default function OrderRow({ order, withStatusChange = false }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +50,7 @@ export default function OrderRow({ order, withStatusChange = false }) {
         onClick={() => setIsOpen(!isOpen)}>
         <div className="flex items-center gap-3">
           <div>
-            <DeliveryIcon />
+            <ShoppingBasketIcon />
           </div>
           <div className="flex flex-col">
             <span className="text-sage font-body">

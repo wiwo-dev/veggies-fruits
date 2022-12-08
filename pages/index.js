@@ -22,9 +22,7 @@ const capitalizeFirstLetter = (string) => {
 export default function Products({ products, categories }) {
   const { data: session } = useSession();
   const [selectedCategory, setSelectedCategory] = useState("");
-
   const [filteredProducts, setFilteredProducts] = useState(products);
-
   const [searchPhrase, setSearchPhrase] = useState("");
 
   useEffect(() => {
@@ -71,43 +69,29 @@ export default function Products({ products, categories }) {
         </HorizontalRail>
         <section className="max-w-screen-xs mx-auto">
           <div className="relative">
-            <Input onChange={(e) => setSearchPhrase(e.target.value)} value={searchPhrase}></Input>
+            <Input
+              onChange={(e) => setSearchPhrase(e.target.value)}
+              value={searchPhrase}
+              placeholder="I would like..."></Input>
             <div
               className="absolute right-4 top-0 bottom-0 flex justify-center items-center"
               onClick={() => setSearchPhrase("")}>
               <CloseIcon fill="#297c3b" />
             </div>
           </div>
-          <Text>{searchPhrase && `Searching for ${searchPhrase} ${selectedCategory && `in ${selectedCategory}`}`}</Text>
+          <Text>
+            {searchPhrase && `Searching for ${searchPhrase} ${selectedCategory && `in ${selectedCategory}`}`}&nbsp;
+          </Text>
         </section>
         {/* <section className="flex flex-wrap justify-around gap-3 my-5"> */}
-        <section className="grid justify-items-center grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 my-5">
+        <section className="grid justify-items-center grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 my-5 mx-auto w-fit">
           {!products ? (
             <div className="mx-auto mt-5">
               <p>no products...</p>
             </div>
           ) : (
-            filteredProducts?.map((product, index) => (
-              // <AddToCardAnimation targetRef={cartRef} key={index}>
-              <ProductCard key={index} product={product} />
-              // </AddToCardAnimation>
-            ))
+            filteredProducts?.map((product, index) => <ProductCard key={index} product={product} />)
           )}
-        </section>
-
-        <section>
-          {/* <AddToCardAnimation targetRef={cartRef}>
-          <Button
-          onClick={() => {
-            console.log("TEST TEST CLICK");
-          }}>
-          Test
-          </Button>
-          </AddToCardAnimation>
-          
-          <div className="mt-[100px] ml-[100px]" ref={cartRef}>
-          <MdShoppingCart />
-        </div> */}
         </section>
       </MainContainer>
     </>
@@ -121,15 +105,7 @@ Products.getLayout = function getLayout(page) {
 import prisma from "lib/prisma";
 import { CloseIcon } from "components/Icons/CloseIcon";
 
-// This function gets called at build time on server-side.
-// It won't be called on client-side, so you can even do
-// direct database queries.
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  //const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`);
-  //const products = await res.json();
-
   const category = "";
   const products = await prisma.product.findMany({
     //where: { published: true },
@@ -156,8 +132,6 @@ export async function getStaticProps() {
     id: category.id,
   }));
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
   return {
     props: {
       products: simplifiedProducts,

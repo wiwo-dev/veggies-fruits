@@ -8,7 +8,7 @@ const variants = {
   exit: { opacity: 0, x: -200 },
 };
 
-export default function TransitionLayout({ children }) {
+export default function TransitionLayout({ children, key }) {
   const router = useRouter();
   const [transitionDirection, setTransitionDirection] = useState("forward");
   //let transitionDirection = "forward";
@@ -24,7 +24,8 @@ export default function TransitionLayout({ children }) {
       variants={variants}
       initial={transitionDirection === "back" ? "exit" : "hidden"}
       animate="enter"
-      exit={transitionDirection === "back" ? "hidden" : "exit"}>
+      exit={transitionDirection === "back" ? "hidden" : "exit"}
+      key={key}>
       {children}
     </motion.div>
   );

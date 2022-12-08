@@ -2,7 +2,7 @@ import axios from "axios";
 import JsonPreviewer from "components/JsonPreviewer";
 import MainLayout from "components/layout/MainLayout";
 import ProfileMenu from "components/profile/ProfileMenu";
-import { Button, Heading, LoadingSpinner, MainContainer, Text } from "components/ui";
+import { BoxSection, Button, Heading, LoadingSpinner, MainContainer, Text } from "components/ui";
 import { Input } from "components/ui/form";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -27,10 +27,12 @@ function Profile() {
     <>
       <MainContainer width="xl">
         <ProfileMenu />
-        <div className="flex flex-col items-center">
-          <Heading>{session?.token.name}</Heading>
-          <Text>{session?.token.email}</Text>
-        </div>
+        <BoxSection>
+          <div className="flex flex-col items-center pb-7">
+            <Heading>{session?.token.name}</Heading>
+            <Text>{session?.token.email}</Text>
+          </div>
+        </BoxSection>
       </MainContainer>
     </>
   );

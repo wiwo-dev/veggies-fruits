@@ -17,11 +17,11 @@ export default function Navbar() {
   return (
     <>
       <div className=" bg-primary-9">
-        <div className="max-w-screen-lg mx-auto flex flex-row items-center justify-between w-full h-10 px-4 text-white">
+        <div className="max-w-screen-md mx-auto flex flex-row items-center justify-between w-full h-10 px-4 text-white">
           <Link href="/">
             <span className="flex gap-2 items-center cursor-pointer">
               <ProjectIcon fill="white" />
-              Veggies & Fruits
+              <span className="hidden md:inline font-display">Veggies & Fruits</span>
             </span>
           </Link>
 

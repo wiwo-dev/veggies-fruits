@@ -102,45 +102,37 @@ export default function Checkout() {
 
   return (
     <>
-      <motion.div
-        variants={variants}
-        initial={transitionDirection === "back" ? "left" : "right"}
-        animate="enter"
-        exit={isGoingBack ? "right" : "left"}
-        key="view"
-        location="view">
-        <MainContainer width="xl">
-          <Heading>Checkout</Heading>
-          <Text>Choose if you would like your order to be delivered or you prefere self pickup</Text>
-          <BoxSection>
-            <AccountPanel />
-          </BoxSection>
+      <MainContainer width="xl">
+        <Heading>Checkout</Heading>
+        <Text>Choose if you would like your order to be delivered or you prefere self pickup</Text>
+        <BoxSection>
+          <AccountPanel />
+        </BoxSection>
 
-          <BoxSection>
-            <DeliveryPanel deliveryAddress={deliveryAddress} setDeliveryAddress={setDeliveryAddress} />
-          </BoxSection>
+        <BoxSection>
+          <DeliveryPanel deliveryAddress={deliveryAddress} setDeliveryAddress={setDeliveryAddress} />
+        </BoxSection>
 
-          <BoxSection>
-            <OrderSummary cartItems={cartItems} />
-          </BoxSection>
+        <BoxSection>
+          <OrderSummary cartItems={cartItems} />
+        </BoxSection>
 
-          <BoxSection>
-            <section className=" flex justify-around">
-              <Link href="/cart/view?transition=back">
-                <a
-                  onClick={() => {
-                    setIsGoingBack(true);
-                  }}>
-                  <Button>Back</Button>
-                </a>
-              </Link>
-              <Button onClick={sendOrder} loading={isProcessing}>
-                Confirm order
-              </Button>
-            </section>
-          </BoxSection>
-        </MainContainer>
-      </motion.div>
+        <BoxSection>
+          <section className=" flex justify-around">
+            <Link href="/cart/view?transition=back">
+              <a
+                onClick={() => {
+                  setIsGoingBack(true);
+                }}>
+                <Button>Back</Button>
+              </a>
+            </Link>
+            <Button onClick={sendOrder} loading={isProcessing}>
+              Confirm order
+            </Button>
+          </section>
+        </BoxSection>
+      </MainContainer>
     </>
   );
 }
@@ -149,9 +141,7 @@ Checkout.getLayout = function getLayout(page) {
   return (
     <MainLayout>
       <AnimationPresenceLayout>
-        {/* <TransitionLayout key="checkout"> */}
-        {page}
-        {/* </TransitionLayout> */}
+        <TransitionLayout key="checkout">{page}</TransitionLayout>
       </AnimationPresenceLayout>
     </MainLayout>
   );
