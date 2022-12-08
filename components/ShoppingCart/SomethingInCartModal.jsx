@@ -21,7 +21,7 @@ export default function SomethingInCartModal() {
         {productsCount > 0 && isModalOpen && (
           <motion.div
             initial={{ height: 0 }}
-            animate={{ height: 80 }}
+            animate={{ height: 50 }}
             exit={{ height: 0 }}
             className="fixed bottom-0 left-0 w-full bg-primary-9 flex justify-center items-center">
             <div className="font-body text-white">
@@ -32,7 +32,7 @@ export default function SomethingInCartModal() {
             </div>
 
             <div
-              className="absolute right-3 top-5 w-[30px] h-[30px] cursor-pointer"
+              className="absolute right-3 top-[50%] bottom-0 w-[30px] h-[30px] cursor-pointer -translate-y-[50%]"
               onClick={() => {
                 setIsModalOpen(false);
               }}>

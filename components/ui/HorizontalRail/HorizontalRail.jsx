@@ -1,28 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useDragControls } from "framer-motion";
 import useWindowWidth from "../../useWindowWidth";
-import RailArrowIcon from "./RailArrowIcon";
-
-//withButtonMargins - true / false
 
 function HorizontalRail({ children, withButtonMargins = true, gap = 3, height = "100px" }) {
   const [carouselWidth, setCarouselWidth] = useState(0);
   const [leftConstraints, setLeftConstraints] = useState(0);
   const { windowWidth } = useWindowWidth();
   const carouselRef = useRef();
-  const controls = useDragControls();
 
   useEffect(() => {
     const pos1 = carouselRef.current.children[0].getClientRects()[0].x;
     const pos2 =
       carouselRef.current.children[carouselRef.current.children.length - 1].getClientRects()[0].x +
       carouselRef.current.children[carouselRef.current.children.length - 1].getClientRects()[0].width;
-    const childrensWidth = pos2 - pos1;
+    const childrensWidth = pos2;
 
     //setCarouselWidth(carouselRef.current.scrollWidth);
     setCarouselWidth(childrensWidth);
     console.log(childrensWidth);
-    setLeftConstraints(childrensWidth < windowWidth ? childrensWidth : childrensWidth - windowWidth);
+    setLeftConstraints(childrensWidth - windowWidth + 20);
     //console.log(carouselRef.current.scrollWidth);
   }, [windowWidth]);
 
@@ -32,8 +28,7 @@ function HorizontalRail({ children, withButtonMargins = true, gap = 3, height = 
         <motion.div
           className={`flex gap-${gap} ${windowWidth > carouselWidth ? "justify-center" : "justify-start"}`}
           ref={carouselRef}
-          drag="x"
-          dragControls={controls}
+          drag={windowWidth < carouselWidth ? "x" : ""}
           dragElastic={0.2}
           dragConstraints={{ left: -leftConstraints, right: 0 }}>
           {children}
