@@ -61,7 +61,7 @@ export default function Cart({}) {
 
           {cartItems.length > 0 ? (
             <>
-              <section className="mt-5 flex flex-col justify-between w-full gap-3 max-w-xl">
+              <section className="mt-5 flex flex-col justify-between w-full gap-3">
                 {cartItems.map((cartItem, index) => (
                   <div key={index}>
                     <CartItemRow cartItem={cartItem} />

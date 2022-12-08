@@ -5,7 +5,7 @@ import Link from "next/link";
 import MainLayout from "components/layout/MainLayout";
 import TransitionLayout from "components/layout/TransitionLayout";
 import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
-import { Text, Heading, Button, MainContainer } from "components/ui";
+import { Text, Heading, Button, MainContainer, BoxSection } from "components/ui";
 import Confetti from "components/Confetti";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -40,21 +40,20 @@ export default function ThankYouPage({}) {
 
   return (
     <>
-      {/* <JsonPreviewer>{cartItems}</JsonPreviewer> */}
-
       <MainContainer width="xl">
-        <Heading>👉 👌 🤙</Heading>
-        <Text>Fuck Yeah! Your order is paid.</Text>
-        {checkoutSession?.client_reference_id && <Text>Your order ID is: {checkoutSession.client_reference_id}</Text>}
+        <BoxSection>
+          <Heading>Thank you! Your order is paid</Heading>
+          <Text>Hope you enjoy :)</Text>
+          {checkoutSession?.client_reference_id && <Text>Your order ID is: {checkoutSession.client_reference_id}</Text>}
 
-        <JsonPreviewer>{checkoutSession}</JsonPreviewer>
-        <section className="my-5">
-          <Link href="/products">
-            <a>
-              <Button>Main page</Button>
-            </a>
-          </Link>
-        </section>
+          <section className="my-5">
+            <Link href="/">
+              <a>
+                <Button>Continue shopping</Button>
+              </a>
+            </Link>
+          </section>
+        </BoxSection>
       </MainContainer>
       {checkoutSession && <Confetti />}
     </>

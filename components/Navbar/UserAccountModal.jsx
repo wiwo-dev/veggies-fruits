@@ -28,7 +28,7 @@ export default function UserAccountModal({ onClose }) {
             <Heading>{session?.token.name}</Heading>
             <Text>Session status: {status}</Text>
             <Text>{session?.token.email}</Text>
-            <div className="flex justify-between items-center gap-3 mt-3 w-full">
+            <div className="flex justify-between items-center gap-3 mt-3 w-full" onClick={onClose}>
               <Link href="/profile">
                 <a>
                   <Button>Profile</Button>

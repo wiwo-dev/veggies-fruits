@@ -83,7 +83,8 @@ export default function OrderRow({ order, withStatusChange = false }) {
                 <option disabled value="">
                   Choose status
                 </option>
-                <option value="NEW_SEND">NEW_SEND</option>
+                <option value="NEW">NEW</option>
+                <option value="PAID">PAID</option>
                 <option value="SEND">SEND</option>
                 <option value="DELIVERED">DELIVERED</option>
                 <option value="CANCELED">CANCELED</option>

@@ -62,7 +62,7 @@ export default function Checkout() {
     }));
 
     const requestBody = {
-      status: "NEW_SEND",
+      status: "NEW",
       CartItems,
       deliveryAddress,
     };

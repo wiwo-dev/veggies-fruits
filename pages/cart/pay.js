@@ -67,11 +67,20 @@ export default function PayPage({}) {
       {/* <JsonPreviewer>{cartItems}</JsonPreviewer> */}
 
       <MainContainer width="xl">
-        <Heading>Yeah!</Heading>
-        <Text>Yeah! We have your order. Now you have to pay! 💸</Text>
-        <section className="my-5">
+        <Heading>Thank you!</Heading>
+        <Text>Your order is confirmed. Please pay using the button below.</Text>
+        <Text>
+          As this app is in test mode you can use a <span className="underline">test card</span>
+        </Text>
+        <div className="bg-primary-3 p-8 py-10 w-fit my-3 rounded-xl">
+          <Heading className="mt-0 mb-3">Test card</Heading>
+          <Text className="mt-0">Name: use any name</Text>
+          <Text>Card number: 4242 4242 4242 4242</Text>
+          <Text>Valid: 12/23 | CVV: 123</Text>
+        </div>
+        <section className="my-5 mx-auto ">
           <Button onClick={handlePayClick} loading={isProcessing}>
-            Pay
+            CLICK HERE TO PAY
           </Button>
         </section>
         {/* <JsonPreviewer>{order}</JsonPreviewer> */}
@@ -80,6 +89,11 @@ export default function PayPage({}) {
             <OrderSummary cartItems={order.CartItems} />
           </section>
         )}
+        <section className="my-5 mx-auto flex">
+          <Button onClick={handlePayClick} loading={isProcessing}>
+            CLICK HERE TO PAY
+          </Button>
+        </section>
       </MainContainer>
       {/* <Confetti /> */}
     </>
