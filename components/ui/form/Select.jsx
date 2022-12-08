@@ -5,7 +5,7 @@ export default function Select({
   type,
   name,
   value,
-  onChange,
+
   placeholder,
   required,
   error,

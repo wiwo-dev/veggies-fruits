@@ -75,11 +75,16 @@ export default async function handle(req, res) {
     const data = {
       status,
     };
-    const order = await prisma.order.update({
-      where: { id: Number(id) },
-      data,
-    });
-    console.log(`Updated order: ${order.id}`);
-    res.json(order);
+    if (session?.dbUser.role === "ADMIN") {
+      const order = await prisma.order.update({
+        where: { id: Number(id) },
+        data,
+      });
+      console.log(`Updated order: ${order.id}`);
+      res.status(200).json(order);
+    } else {
+      console.log("NO PERMISSION");
+      res.status(401).json({ orders: [], message: "NO PERMISSION" });
+    }
   }
 }
