@@ -7,7 +7,7 @@ import { useSWRConfig } from "swr";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 
-export default function OrderRow({ order }) {
+export default function OrderRow({ order, withStatusChange = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { mutate } = useSWRConfig();
@@ -52,9 +52,9 @@ export default function OrderRow({ order }) {
           </div>
           <div className="flex flex-col">
             <span className="text-sage font-body">
-              Order ID: {order.id} || Status: {order.status} || Created:{" "}
-              {new Date(order.createdAt).toLocaleString("pl-PL")}
+              ID: {order.id} || <span className="">{order.status}</span>
             </span>
+            <span className="text-sage font-body">{new Date(order.createdAt).toLocaleString("pl-PL")}</span>
             <BoxText>
               {order.deliveryAddress.name} {order.deliveryAddress.address || ""}
               {order.deliveryAddress.address2 || ""}
@@ -77,25 +77,27 @@ export default function OrderRow({ order }) {
           <BoxSection>
             <OrderSummary cartItems={order.CartItems} />
           </BoxSection>
-          <BoxSection>
-            <Select label="Status" name="status" required defaultValue={order.status} onChange={handleStatusChange}>
-              <option disabled value="">
-                Choose status
-              </option>
-              <option value="NEW_SEND">NEW_SEND</option>
-              <option value="SEND">SEND</option>
-              <option value="DELIVERED">DELIVERED</option>
-              <option value="CANCELED">CANCELED</option>
-            </Select>
-            <div className="h-[2px] w-full">
-              {isLoading && (
-                <motion.div
-                  className="bg-primary-7 h-full"
-                  animate={{ width: ["0%", "100%"] }}
-                  transition={{ repeat: Infinity, repeatType: "loop", duration: 1 }}></motion.div>
-              )}
-            </div>
-          </BoxSection>
+          {withStatusChange && (
+            <BoxSection>
+              <Select label="Status" name="status" required defaultValue={order.status} onChange={handleStatusChange}>
+                <option disabled value="">
+                  Choose status
+                </option>
+                <option value="NEW_SEND">NEW_SEND</option>
+                <option value="SEND">SEND</option>
+                <option value="DELIVERED">DELIVERED</option>
+                <option value="CANCELED">CANCELED</option>
+              </Select>
+              <div className="h-[2px] w-full">
+                {isLoading && (
+                  <motion.div
+                    className="bg-primary-7 h-full"
+                    animate={{ width: ["0%", "100%"] }}
+                    transition={{ repeat: Infinity, repeatType: "loop", duration: 1 }}></motion.div>
+                )}
+              </div>
+            </BoxSection>
+          )}
         </>
       )}
 

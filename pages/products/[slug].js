@@ -28,7 +28,7 @@ export default function Page({ product }) {
   return (
     <>
       <MainContainer width="xl">
-        <div className="flex justify-between mt-5">
+        <div className="flex justify-between mt-5 gap-5">
           <div className="max-w-[250px] flex flex-col justify-center gap-2">
             <Heading>{product.name}</Heading>
             <p className="font-body text-sm text-sage">unit: {product.unit}</p>
@@ -50,7 +50,7 @@ export default function Page({ product }) {
                 </div>
               </div>
               <div className="flex justify-start items-center gap-5">
-                <span className="font-abhaya-libre text-primary-11 text-lg">
+                <span className="font-abhaya-libre text-primary-11 text-lg min-w-[60px]">
                   {" "}
                   {(product.price * quantity).toFixed(2)}$
                 </span>
@@ -62,12 +62,13 @@ export default function Page({ product }) {
               </div>
             </div>
           </div>
-          <div className="rounded-md overflow-hidden shadow-md h-[200px]">
+          <div className="rounded-md overflow-hidden shadow-md h-[200px] sm:h-[300px] aspect-[3/2] relative">
             <ImgixImage
               src={`${product.mainPhotoUrl}`}
-              width="300px"
-              height="200px"
-              className="object-cover w-[300px] h-[200px] rounded-md"
+              //width="300px"
+              //height="200px"
+              layout="fill"
+              className="object-cover m-0 rounded-md"
               alt={product.name}
             />
           </div>

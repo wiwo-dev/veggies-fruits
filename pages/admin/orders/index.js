@@ -5,7 +5,7 @@ import Navbar from "components/Navbar/Navbar";
 import { useSession } from "next-auth/react";
 import React, { useEffect } from "react";
 import useSWR from "swr";
-import JsonPreviewer from "components/JsonPreviewer";
+import { LoadingSpinner } from "components/ui";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -18,8 +18,12 @@ export default function Page() {
       <Navbar />
       <AdminMenu />
       <main className="max-w-screen-md mx-auto px-[32px]">
-        {!orders && <p>Loading...</p>}
-        {!error && orders?.orders.map((order, ind) => <OrderRow key={ind} order={order} />)}
+        {!orders && (
+          <div className="flex justify-center">
+            <LoadingSpinner />
+          </div>
+        )}
+        {!error && orders?.orders.map((order, ind) => <OrderRow key={ind} order={order} withStatusChange />)}
       </main>
     </>
   );

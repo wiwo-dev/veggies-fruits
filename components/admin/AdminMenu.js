@@ -4,7 +4,7 @@ import HorizontalMenuLink from "./HorizontalMenuLink";
 
 export default function AdminMenu() {
   return (
-    <ul className="flex gap-10 justify-center py-3">
+    <ul className="flex gap-2 justify-center py-3 overflow-hidden">
       <li>
         <HorizontalMenuLink href="/admin/orders">
           <span className="flex items-center gap-3">

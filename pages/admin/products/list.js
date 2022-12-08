@@ -2,7 +2,7 @@ import AdminMenu from "components/admin/AdminMenu";
 import ProductRow from "components/admin/ProductRow";
 import AdminLayout from "components/layout/AdminLayout";
 import Navbar from "components/Navbar/Navbar";
-import { Button } from "components/ui";
+import { Button, LoadingSpinner } from "components/ui";
 import Link from "next/link";
 import React, { useState } from "react";
 import useSWR from "swr";
@@ -26,9 +26,11 @@ export default function Page() {
             <span className="flex items-center gap-3">Add Product</span>
           </HorizontalMenuLink>
         </div>
-
-        <p>Here are your products</p>
-        {!products && <p>Loading...</p>}
+        {!products && (
+          <div className="flex justify-center">
+            <LoadingSpinner />
+          </div>
+        )}
         {products &&
           products.map((product, ind) => (
             <div key={ind}>
