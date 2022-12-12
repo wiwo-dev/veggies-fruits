@@ -64,11 +64,15 @@ export default NextAuth({
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
         let user;
-        if (credentials.username === "admin" && credentials.password === "admin") {
-          user = { id: 666, name: "A Admin", email: "admin@example.com" };
+        if (credentials.username === "admin" && credentials.password === process.env.ADMIN_PASSWORD) {
+          const prismaAdmin = await prisma.user.findUnique({
+            where: {
+              email: "admin@example.com",
+            },
+          });
+          const { id, name, email } = prismaAdmin;
+          user = { id, name, email };
         } else user = null;
-        //const user = { id: 1, name: "J Smith", email: "jsmith@example.com" };
-
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
           return user;

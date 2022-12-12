@@ -11,7 +11,7 @@ const ModalBackdrop = ({ children, onClick }) => {
   }, []);
 
   return mounted
-    ? createPortal(<div className="absolute left-0 top-0 w-screen h-screen" onClick={onClick}></div>, document.body)
+    ? createPortal(<div className="absolute left-0 top-0 w-full h-screen" onClick={onClick}></div>, document.body)
     : null;
 };
 

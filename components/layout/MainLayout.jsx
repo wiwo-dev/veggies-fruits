@@ -13,7 +13,7 @@ export default function MainLayout({ children }) {
     <>
       <div className="overflow-x-hidden  relative">
         <Navbar />
-        {children}
+        <div className="min-h-[90vh]">{children}</div>
         <div className="min-h-[80px]"></div>
         <SomethingInCartModal />
         <Footer />

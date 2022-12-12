@@ -27,6 +27,12 @@ function Profile() {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/");
+    }
+  }, [status]);
+
   const handleInputChange = (evt) => {
     const value = evt.target.value;
     setUserData({

@@ -66,10 +66,12 @@ export default function PayPage({}) {
     <>
       <MainContainer width="xl">
         <Heading>Thank you!</Heading>
-        <Text>Your order is confirmed. Please pay using the button below.</Text>
+        <Text>Your order is confirmed. Now you have to pay</Text>
         <Text>
-          As this app is in test mode you can use a <span className="underline">test card</span>
+          As this is a demonstration project you can use a <span className="underline">test card to pay</span>. Next
+          step will take you to Stripe. Stripe is a payment service provider.
         </Text>
+
         <div className="bg-primary-3 p-8 py-10 w-fit my-3 rounded-xl">
           <Heading className="mt-0 mb-3">Test card</Heading>
           <Text className="mt-0">Name: use any name</Text>

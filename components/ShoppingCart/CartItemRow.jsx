@@ -3,9 +3,10 @@ import { useEffect, useState, useContext } from "react";
 
 import { ECommerceContext } from "components/ShoppingCart/ECommerceContext";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function CartItemRow({ cartItem }) {
-  const { name, mainPhotoUrl, unit, price } = cartItem.product;
+  const { name, mainPhotoUrl, unit, price, slug } = cartItem.product;
   const { quantity } = cartItem;
 
   const { cartItems, productsCount, totalPrice, addProduct, removeProduct, removeAllProducts } =
@@ -17,19 +18,23 @@ export default function CartItemRow({ cartItem }) {
   return (
     <div className="flex items-center gap-5 justify-between p-3">
       <div className="">
-        <div
-          className={`w-[${imageWidth}px] relative bg-gradient-to-r from-green-200 to-green-700`}
-          style={{ height: `${imageHeight}px` }}>
-          <Image
-            src={`${mainPhotoUrl}?fit=facearea&w=${imageWidth}&h=${imageHeight}`}
-            width={imageWidth}
-            height={imageHeight}
-            alt={name}
-          />
-        </div>
+        <Link href={`/products/${slug}`} className="cursor-pointer">
+          <div
+            className={`w-[${imageWidth}px] relative bg-gradient-to-r from-green-200 to-green-700`}
+            style={{ height: `${imageHeight}px` }}>
+            <Image
+              src={`${mainPhotoUrl}?fit=facearea&w=${imageWidth}&h=${imageHeight}`}
+              width={imageWidth}
+              height={imageHeight}
+              alt={name}
+            />
+          </div>
+        </Link>
         <div className="flex flex-col justify-between pt-1">
           <div className="flex flex-col mb-2 gap-0">
-            <p className="font-body text-primary-12 text-lg">{name}</p>
+            <Link href={`/products/${slug}`} className="cursor-pointer">
+              <p className="font-body text-primary-12 text-lg">{name}</p>
+            </Link>
             <span className="font-body text-sage text-sm lowercase">{unit}</span>
             <span className="font-body self-start text-primary-11">{price.toFixed(2)}$</span>
           </div>

@@ -24,6 +24,12 @@ export default function Page() {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/");
+    }
+  }, [status]);
+
   return (
     <>
       <MainContainer width="xl">
