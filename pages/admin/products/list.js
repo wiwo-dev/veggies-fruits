@@ -27,6 +27,10 @@ export default function Page() {
   const [searchPhrase, setSearchPhrase] = useState("");
 
   useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
+
+  useEffect(() => {
     if (selectedCategory && searchPhrase) {
       setFilteredProducts(
         products
@@ -93,13 +97,14 @@ export default function Page() {
               </Text>
             </section>
 
-            {filteredProducts.map((product, ind) => (
-              <div key={ind}>
-                {/* <p>Product {ind}</p> */}
-                <ProductRow product={product} />
-                <hr></hr>
-              </div>
-            ))}
+            {filteredProducts &&
+              filteredProducts.map((product, ind) => (
+                <div key={ind}>
+                  {/* <p>Product {ind}</p> */}
+                  <ProductRow product={product} />
+                  <hr></hr>
+                </div>
+              ))}
           </>
         )}
       </main>

@@ -1,4 +1,3 @@
-import AdminMenu from "components/admin/AdminMenu";
 import JsonPreviewer from "components/JsonPreviewer";
 import AdminLayout from "components/layout/AdminLayout";
 import Navbar from "components/Navbar/Navbar";
