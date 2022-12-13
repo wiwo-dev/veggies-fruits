@@ -8,8 +8,14 @@ import DeliveryIcon from "./DeliveryIcon";
 import PickUpIcon from "./PickUpIcon";
 import RightMoreArrowIcon from "./RightMoreArrowIcon";
 
-export default function DeliveryPanel({ deliveryAddress, setDeliveryAddress, isDeliveryAddressFilled }) {
-  const [deliveryMethod, setDeliveryMethod] = useState("delivery");
+export default function DeliveryPanel({
+  deliveryAddress,
+  setDeliveryAddress,
+  isDeliveryAddressFilled,
+  deliveryMethod,
+  setDeliveryMethod,
+}) {
+  //const [deliveryMethod, setDeliveryMethod] = useState("delivery");
   const [chooseDeliveryOptionOpen, setChooseDeliveryOptionOpen] = useState(false);
 
   const handleInputChange = (evt) => {
@@ -54,7 +60,7 @@ export default function DeliveryPanel({ deliveryAddress, setDeliveryAddress, isD
     return (
       <div
         className={`flex justify-between items-center p-3 rounded-md hover:bg-primary-4 hover:cursor-pointer ${
-          !isDeliveryAddressFilled && "border-2 border-red-300"
+          !isDeliveryAddressFilled && deliveryMethod !== "pickup" && "border-2 border-red-300"
         }`}
         onClick={() => setChooseDeliveryOptionOpen(!chooseDeliveryOptionOpen)}>
         <div className="flex items-center gap-3">

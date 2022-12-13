@@ -38,6 +38,7 @@ export default function Checkout() {
   const router = useRouter();
 
   const [deliveryAddress, setDeliveryAddress] = useState({});
+  const [deliveryMethod, setDeliveryMethod] = useState("delivery");
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -129,6 +130,8 @@ export default function Checkout() {
             deliveryAddress={deliveryAddress}
             setDeliveryAddress={setDeliveryAddress}
             isDeliveryAddressFilled={isDeliveryAddressFilled}
+            deliveryMethod={deliveryMethod}
+            setDeliveryMethod={setDeliveryMethod}
           />
         </BoxSection>
 
@@ -146,7 +149,10 @@ export default function Checkout() {
                 <Button>Back</Button>
               </a>
             </Link>
-            <Button onClick={sendOrder} loading={isProcessing} disabled={!isDeliveryAddressFilled}>
+            <Button
+              onClick={sendOrder}
+              loading={isProcessing}
+              disabled={!isDeliveryAddressFilled && deliveryMethod !== "pickup"}>
               Confirm order
             </Button>
           </section>
