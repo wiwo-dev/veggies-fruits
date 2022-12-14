@@ -29,8 +29,9 @@ export default async function handler(req, res) {
       payment_method_types: ["card"],
       client_reference_id: order.id, //order id
       line_items: itemsForStripe,
-      success_url: `${req.headers.origin}/cart/thankyou?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.origin}/cart/error`,
+      //success_url: `${req.headers.origin}/cart/thankyou?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${process.env.SERVER_URL}/cart/thankyou?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.SERVER_URL}/cart/error`,
     });
     res.status(200).json(session);
   } catch (err) {
