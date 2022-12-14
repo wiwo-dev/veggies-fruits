@@ -90,7 +90,7 @@ export default function Products({ products, categories }) {
               <p>no products...</p>
             </div>
           ) : (
-            filteredProducts?.map((product, index) => <ProductCard key={index} product={product} />)
+            filteredProducts?.map((product, index) => <ProductCard key={product.id} product={product} />)
           )}
         </section>
       </MainContainer>

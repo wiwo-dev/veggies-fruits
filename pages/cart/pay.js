@@ -52,7 +52,7 @@ export default function PayPage({}) {
   const handlePayClick = async () => {
     setIsProcessing(true);
     postData(`${process.env.NEXT_PUBLIC_API_URL}/checkout/create-checkout-session`, {
-      orderId: "666666",
+      //orderId: "666666",
       order: { ...order },
     }).then((data) => {
       console.log("RECEIVED DATA FROM POST TO create-checkout-session");
