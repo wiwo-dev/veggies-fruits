@@ -11,15 +11,15 @@ For presentation purposes, I decided to fill the deployed version of the shop wi
 The products list is the main application view. Users can easily search for the desired product using a category filter and search bar. Filtering works very fast and without contacting the server.
 Users can add and remove products directly from the list view or from each product subpage.
 
-![list view](http://localhost:3000/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F9lwq5y1zam6x%2F68Ysrs2zCdpR9Oy0wZl0xz%2F7ba38721bf0ef10f1205d6ff6a865c01%2Fproduct_list.jpg&w=2048&q=75 "list view")
+![list view](https://wiwo.dev/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F9lwq5y1zam6x%2F68Ysrs2zCdpR9Oy0wZl0xz%2F14ee7be4cdb487051034f4e54e59299b%2Fproduct_list.jpg&w=2048&q=75 "list view")
 
 To make the order users have to open the cart view, where again, they can edit the amount of each product and confirm the order.
 
-![confirm order](https://images.ctfassets.net/9lwq5y1zam6x/6ulecq7KUO5U0fen4u5R3g/1d2d89d1551396cf0728e029c58236a4/cart.jpg "confirm order")
+![confirm order](https://wiwo.dev/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F9lwq5y1zam6x%2F6ulecq7KUO5U0fen4u5R3g%2F50b1b54556174ba49068dd368a67ff28%2Fcart.jpg&w=2048&q=75 "confirm order")
 
 The next step is to decide if users would like to create a new account in the shop or make an order without the account. Authentication is possible using Google Account. Then the user has to decide if the order should be shipped or if they would like to pick it up by themselves. All the options and steps are easy to understand as the interface guides through the process.
 
-![checkout](https://images.ctfassets.net/9lwq5y1zam6x/6JAZRCsCegVUIkrrc5lLkh/ebda0be3a928f5b975fc77c1ca1437ef/checkout_delivery.jpg "checkout")
+![checkout](https://wiwo.dev/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F9lwq5y1zam6x%2F6JAZRCsCegVUIkrrc5lLkh%2F26e8ba99f97406d1f203d31625b8ff29%2Fcheckout_delivery.jpg&w=2048&q=75 "checkout")
 
 The final step is payment. Each transaction can be payed using Stripe payments. For demonstration purposes, it is set in test mode so you can easily pay using a test card (test card data is available at this step). After a successful payment the order’s status is changed.
 
@@ -29,7 +29,7 @@ If the user decided to log in, the order and its status are available on the use
 
 Admin panel is available only for logged-in users who’s role in the database is set to “ADMIN”.
 
-![admin edit product](https://images.ctfassets.net/9lwq5y1zam6x/1wFCdM3tx34a11o79VJ2bm/c9d01725f3e656591ba73eef679bdea1/admin_edit.jpg "admin edit product")
+![admin edit product](https://wiwo.dev/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F9lwq5y1zam6x%2F1wFCdM3tx34a11o79VJ2bm%2Fd40f7a68d2c3ff0b5d8c8d93ad31a5a9%2Fadmin_edit.jpg&w=2048&q=75 "admin edit product")
 
 Admins can add, edit and remove products. There is also a list of all the orders where Admins can change each order’s status, for example from “paid” to “send”.
 
