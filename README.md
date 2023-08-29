@@ -4,6 +4,12 @@ It’s a full-stack e-commerce platform which was designed for businesses that s
 
 For presentation purposes, I decided to fill the deployed version of the shop with vegetables and fruits as products. That is where the name Veggies & Fruits comes from.
 
+## How to test it?
+
+Go ahead and open the deployed version at https://ecommerce.wiwoproduction.com/
+Add some products to the cart, go through the checkout process and pay using the test card.
+If you would like to get access to the admin account, reach out to me.
+
 ## Features and elements
 
 ### Client-side
@@ -46,12 +52,6 @@ Admins can add, edit and remove products. There is also a list of all the orders
 I designed the whole application by myself. I’ve created many UI components that are being reused throughout the project. Most of the elements were first designed in Figma and then coded.
 The whole interface is meant to be mobile-first, thus I focused more on narrow screens.
 I used Radix Color system to make the application’s interface easy to understand and also to limit the number of design decisions I had to make. I used https://fontjoy.com/ to choose fonts that are looking good together.
-
-## How to test it?
-
-Go ahead and open the deployed version at https://ecommerce.wiwoproduction.com/
-Add some products to the cart, go through the checkout process and pay using the test card.
-If you would like to get access to the admin account, reach out to me.
 
 ## Final thoughts
 
