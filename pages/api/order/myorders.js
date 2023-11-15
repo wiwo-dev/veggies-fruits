@@ -12,11 +12,10 @@ prisma.$use(async (params, next) => {
 
 export default async function handle(req, res) {
   const session = await getSession({ req });
-
   console.log(session);
 
   if (req.method === "GET") {
-    //console.log(session);
+    console.log(session);
     console.log("received GET on api/order/myorders");
     if (session) {
       const orders = await prisma.order.findMany({

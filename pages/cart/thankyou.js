@@ -9,6 +9,7 @@ import { Text, Heading, Button, MainContainer, BoxSection } from "components/ui"
 import Confetti from "components/Confetti";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { useSession } from "next-auth/react";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -38,6 +39,8 @@ export default function ThankYouPage({}) {
     fetcher
   );
 
+  const { data: session } = useSession();
+
   return (
     <>
       <MainContainer width="xl">
@@ -46,12 +49,19 @@ export default function ThankYouPage({}) {
           <Text>Hope you enjoy :)</Text>
           {checkoutSession?.client_reference_id && <Text>Your order ID is: {checkoutSession.client_reference_id}</Text>}
 
-          <section className="my-5">
+          <section className="my-5 flex gap-5">
             <Link href="/">
               <a>
                 <Button>Continue shopping</Button>
               </a>
             </Link>
+            {session && (
+              <Link href="/profile/orders">
+                <a>
+                  <Button>All orders</Button>
+                </a>
+              </Link>
+            )}
           </section>
         </BoxSection>
       </MainContainer>
